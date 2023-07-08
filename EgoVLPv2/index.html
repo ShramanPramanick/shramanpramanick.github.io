@@ -233,11 +233,11 @@
       <img src="./static/images/Main_System.gif"
                  class="interpolation-image" width=80%/></center>
       <p class="content has-text-justified">
-        Computation of three objectives, $L<sub>EgoNCE</sub>$, $L<sub>MLM</sub>$, and $L<sub>ITM</sub>$. We insert cross-modal fusion into uni-modal
+        Computation of three objectives, L<sub>EgoNCE</sub>, L<sub>MLM</sub>, and L<sub>VTM</sub>. We insert cross-modal fusion into uni-modal
 		backbones with a gating mechanism. During pre-training, every forward iteration contains three steps: (i) cross-attention
-		modules are switched off, <strong>EgoVLPv2</strong> acts as dual encoder, $\mathcal{L}_{\mathrm{EgoNCE}}$ is computed. (ii) cross-attention is switched on,
-		<strong>EgoVLPv2</strong> acts as fusion encoder, and video-masked narration pair is fed into <strong>EgoVLPv2</strong> to compute $\mathcal{L}_{\mathrm{MLM}}$ (iii) crossattention
-		is kept on, hard-negative video-narration pairs are fed into <strong>EgoVLPv2</strong> to compute $\mathcal{L}_{\mathrm{VTM}}$. This fusion in the backbone
+		modules are switched off, <strong>EgoVLPv2</strong> acts as dual encoder, L<sub>EgoNCE</sub> is computed. (ii) cross-attention is switched on,
+		<strong>EgoVLPv2</strong> acts as fusion encoder, and video-masked narration pair is fed into <strong>EgoVLPv2</strong> to compute L<sub>MLM</sub> (iii) crossattention
+		is kept on, hard-negative video-narration pairs are fed into <strong>EgoVLPv2</strong> to compute L<sub>VTM</sub>. This fusion in the backbone
 		strategy results in a lightweight and flexible model compared to using fusion-specific transformer layers.
       </p>
     </div>
