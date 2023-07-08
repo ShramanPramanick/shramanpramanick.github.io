@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EgoVLPv2: Egocentric Video-Language Pre-training with Fusion in the Backbone</title>
+  
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+<style>
+.container {
+  position: relative;
+}
+
+.text-block {
+  position: relative;
+  top: 0px;
+  right: 0px;
+  margin-left: 5px;
+  width: 97.5%;
+  text-align: center;
+  border-radius:10px 10px 0px 0px;
+  border: 1px solid #787878;
+  background-color: #787878;
+  color: white;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar" style="margin-bottom:-40px" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://qinghonglin.github.io/EgoVLP/">
+            EgoVLP
+          </a>
+          <a class="navbar-item" href="index.html">
+            EgoVLPv2
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div style="margin-bottom:-100px" class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">EgoVLPv2: Egocentric Video-Language Pre-training with Fusion in the Backbone</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://shramanpramanick.github.io/">Shraman Pramanick</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="http://people.csail.mit.edu/yalesong/home/">Yale Song</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://sayannag.github.io/">Sayan Nag</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://qinghonglin.github.io/">Kevin Qinghong Lin</a><sup>4</sup>,
+            </span>
+			<span class="author-block">
+              <a href="https://www.linkedin.com/in/hardik-shah-75ab5429/">Hardik Shah</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/view/showlab">Mike Zheng Shou</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://engineering.jhu.edu/faculty/rama-chellappa/">Rama Chellappa</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://pzzhang.github.io/pzzhang/">Pengchuan Zhang</a><sup>2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Johns Hopkings University,</span>
+            <span class="author-block"><sup>2</sup>Meta AI,</span>
+			<span class="author-block"><sup>3</sup>University of Toronto,</span>
+			<span class="author-block"><sup>4</sup>National University of Singapore</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+			  <!--
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+			  <!--
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+				 -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    
+	<!-- TL;DR. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">TL;DR</h2>
+        <div class="content has-text-justified">
+          <p>
+            We introduce the second generation of egocentric video-language pre-training (EgoVLPv2), a significant improvement from the previous generation, by incorporating cross-modal fusion directly into the video and language backbones.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ TL;DR. -->
+	
+  <section class="columns is-vcentered interpolation-panel" width=100%>
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+	<center>
+      <h2 class="title is-3">EgoVLPv2 Framework</h2>
+      <img src="./static/images/Main_System.gif"
+                 class="interpolation-image" width=80%/></center>
+      <p class="content has-text-justified">
+        Computation of three objectives, $\mathcal{L}_{\mathrm{EgoNCE}}$, $\mathcal{L}_{\mathrm{MLM}}$, and $\mathcal{L}_{\mathrm{VTM}}$. We insert cross-modal fusion into uni-modal
+		backbones with a gating mechanism. During pre-training, every forward iteration contains three steps: (i) cross-attention
+		modules are switched off, <strong>EgoVLPv2</strong> acts as dual encoder, $\mathcal{L}_{\mathrm{EgoNCE}}$ is computed. (ii) cross-attention is switched on,
+		<strong>EgoVLPv2</strong> acts as fusion encoder, and video-masked narration pair is fed into <strong>EgoVLPv2</strong> to compute $\mathcal{L}_{\mathrm{MLM}}$ (iii) crossattention
+		is kept on, hard-negative video-narration pairs are fed into <strong>EgoVLPv2</strong> to compute $\mathcal{L}_{\mathrm{VTM}}$. This fusion in the backbone
+		strategy results in a lightweight and flexible model compared to using fusion-specific transformer layers.
+      </p>
+    </div>
+  </div>
+  </section>
+  
+  <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Video-language pre-training (VLP) has become increasingly
+			important due to its ability to generalize to various
+			vision and language tasks. However, existing egocentric
+			VLP frameworks utilize separate video and language encoders
+			and learn task-specific cross-modal information only
+			during fine-tuning, limiting the development of a unified
+			system.
+          </p>
+          <p>
+            In this work, we introduce the second generation
+			of egocentric video-language pre-training (<strong>EgoVLPv2</strong>), a
+			significant improvement from the previous generation, by
+			incorporating cross-modal fusion directly into the video and
+			language backbones. <strong>EgoVLPv2</strong> learns strong video-text representation
+			during pre-training and reuses the cross-modal
+			attention modules to support different downstream tasks in
+			a flexible and efficient manner, reducing fine-tuning costs.
+			Moreover, our proposed fusion in the backbone strategy is
+			more lightweight and compute-efficient than stacking additional
+			fusion-specific layers.
+          </p>
+          <p>
+            Extensive experiments on
+			a wide range of VL tasks demonstrate the effectiveness of
+			<strong>EgoVLPv2</strong> by achieving consistent state-of-the-art performance
+			over strong baselines across all downstream.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  
+  <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+		<br>
+        <h2 class="title is-3">Main Results</h2>
+        <!--<div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div> -->
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+	<!-- <center><p><strong>Cross Attention Visualizations</strong></p></center><br> -->
+      <div id="results-carousel" class="carousel results-carousel">
+		<div class="container">
+			<div class="text-block">
+				<p>Radar Plot</p>
+			</div>
+			<div class="item item-steve">
+			  <img src="./static/images/radar.png"
+					 class="interpolation-image" height=100%/>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>EgoMCQ, EgoNLQ, EgoMQ</p>
+			</div>
+			<div class="item item-chair-tp">
+          <img src="./static/images/egomcq.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>QFVS</p>
+			</div>
+			<div class="item item-shiba">
+          <img src="./static/images/qfvs.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>QFVS</p>
+			</div>
+			<div class="item item-blueshirt">
+          <img src="./static/images/qfvs.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+		<br>
+        <h2 class="title is-3">Cross Attention Visualizations</h2>
+        <!--<div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div> -->
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+	<!-- <center><p><strong>Cross Attention Visualizations</strong></p></center><br> -->
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <img src="./static/images/combined1.gif"
+                 class="interpolation-image" height=100%/>
+        </div>
+        <div class="item item-chair-tp">
+          <img src="./static/images/combined2.gif"
+                 class="interpolation-image" height=100%/>
+        </div>
+        <div class="item item-shiba">
+          <img src="./static/images/combined3.gif"
+                 class="interpolation-image" height=100%/>
+        </div>
+        <div class="item item-blueshirt">
+          <img src="./static/images/combined4.gif"
+                 class="interpolation-image" height=100%/>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+  <center><h2 class="title is-3">QFVS Results</h2></center><br>
+
+    <div class="columns is-centered">
+
+      <!-- Visual Effects. -->
+      <div class="column" >
+        <div class="content">
+          <center><h1 style="font-size: 25px;" class="title is-3">Summarized Video 2 of QFVS</h1></center>
+          <center><h1 style="font-size: 15px; margin-top: -13px;"  class="title is-3"><i>Query: All scenes containing stores and hands</i></h1></center>
+          <video id="dollyzoom" autoplay controls playsinline height="100%">
+            <source src="./static/videos/video_2_Trim.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <div class="column">
+        <center><h1 style="font-size: 25px;" class="title is-3">Summarized Video 3 of QFVS</h1></center>
+        <center><h1 style="font-size: 15px; margin-top: 0px; margin-bottom: 19px;"  class="title is-3"><i>Query: All scenes containing faces and chocolates</i></h1></center>
+        <div style="height: 84.35%;" class="columns is-centered">
+          
+            <video id="matting-video" autoplay controls playsinline height="90%">
+              <source src="./static/videos/video_3_Trim.mp4"
+                      type="video/mp4">
+            </video>
+       
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Animation
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Animation</h2>
+
+      
+        <h3 class="title is-4">Interpolating states</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_start.jpg"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+            <p>Start Frame</p>
+          </div>
+          <div class="column interpolation-video-column">
+            <div id="interpolation-image-wrapper">
+              Loading...
+            </div>
+            <input class="slider is-fullwidth is-large is-info"
+                   id="interpolation-slider"
+                   step="1" min="0" max="100" value="0" type="range">
+          </div>
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_end.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+            <p class="is-bold">End Frame</p>
+          </div>
+        </div>
+        <br/>
+ 
+
+        
+        <h3 class="title is-4">Re-rendering the input video</h3>
+        <div class="content has-text-justified">
+          <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="75%">
+            <source src="./static/videos/replay.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        
+
+      </div>
+    </div>
+     -->
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code><!--@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}-->TBD</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Template of this website is borrowed from <a
+              href="https://nerfies.github.io/">nerfies</a> website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
