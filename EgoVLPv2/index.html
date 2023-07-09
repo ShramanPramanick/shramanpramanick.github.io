@@ -206,9 +206,6 @@
   </div>
 </section>
 
-
-<>
-
 <section class="section">
   <div class="container is-max-desktop">
     
@@ -216,11 +213,13 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">TL;DR</h2>
-        <div class="content has-text-justified">
+		<center>
+        <div class="content has-text-justified" style='width:750px'>
           <p>
             We introduce the second generation of egocentric video-language pre-training (EgoVLPv2), a significant improvement from the previous generation, by incorporating cross-modal fusion directly into the video and language backbones.
           </p>
         </div>
+		</center>
       </div>
     </div>
     <!--/ TL;DR. -->
@@ -233,11 +232,11 @@
       <img src="./static/images/Main_System.gif"
                  class="interpolation-image" width=80%/></center>
       <p class="content has-text-justified">
-        Computation of three objectives, $\mathcal{L}_{\mathrm{EgoNCE}}$, $\mathcal{L}_{\mathrm{MLM}}$, and $\mathcal{L}_{\mathrm{VTM}}$. We insert cross-modal fusion into uni-modal
+        Computation of three objectives, L<sub>EgoNCE</sub>, L<sub>MLM</sub>, and L<sub>VTM</sub>. We insert cross-modal fusion into uni-modal
 		backbones with a gating mechanism. During pre-training, every forward iteration contains three steps: (i) cross-attention
-		modules are switched off, <strong>EgoVLPv2</strong> acts as dual encoder, $\mathcal{L}_{\mathrm{EgoNCE}}$ is computed. (ii) cross-attention is switched on,
-		<strong>EgoVLPv2</strong> acts as fusion encoder, and video-masked narration pair is fed into <strong>EgoVLPv2</strong> to compute $\mathcal{L}_{\mathrm{MLM}}$ (iii) crossattention
-		is kept on, hard-negative video-narration pairs are fed into <strong>EgoVLPv2</strong> to compute $\mathcal{L}_{\mathrm{VTM}}$. This fusion in the backbone
+		modules are switched off, <strong>EgoVLPv2</strong> acts as dual encoder, L<sub>EgoNCE</sub> is computed. (ii) cross-attention is switched on,
+		<strong>EgoVLPv2</strong> acts as fusion encoder, and video-masked narration pair is fed into <strong>EgoVLPv2</strong> to compute L<sub>MLM</sub> (iii) crossattention
+		is kept on, hard-negative video-narration pairs are fed into <strong>EgoVLPv2</strong> to compute L<sub>VTM</sub>. This fusion in the backbone
 		strategy results in a lightweight and flexible model compared to using fusion-specific transformer layers.
       </p>
     </div>
@@ -334,10 +333,20 @@
 		
 		<div class="container">
 			<div class="text-block">
-				<p>QFVS</p>
+				<p>EgoTaskQA</p>
 			</div>
 			<div class="item item-blueshirt">
-          <img src="./static/images/qfvs.png"
+          <img src="./static/images/egotaskqa.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>CharadesEgo, EPIC</p>
+			</div>
+			<div class="item item-blueshirt">
+          <img src="./static/images/epic.png"
                  class="interpolation-image" height=100%/>
         </div>
 		</div>
@@ -402,7 +411,7 @@
       <div class="column" >
         <div class="content">
           <center><h1 style="font-size: 25px;" class="title is-3">Summarized Video 2 of QFVS</h1></center>
-          <center><h1 style="font-size: 15px; margin-top: -13px;"  class="title is-3"><i>Query: All scenes containing stores and hands</i></h1></center>
+          <center><h1 style="font-size: 15px; margin-top: -13px; color:deeppink"  class="title is-3">Query: All scenes containing stores and hands</h1></center>
           <video id="dollyzoom" autoplay controls playsinline height="100%">
             <source src="./static/videos/video_2_Trim.mp4"
                     type="video/mp4">
@@ -414,7 +423,7 @@
       <!-- Matting. -->
       <div class="column">
         <center><h1 style="font-size: 25px;" class="title is-3">Summarized Video 3 of QFVS</h1></center>
-        <center><h1 style="font-size: 15px; margin-top: 0px; margin-bottom: 19px;"  class="title is-3"><i>Query: All scenes containing faces and chocolates</i></h1></center>
+        <center><h1 style="font-size: 15px; margin-top: 0px; margin-bottom: 19px; color:deeppink"  class="title is-3">Query: All scenes containing faces and chocolates</h1></center>
         <div style="height: 84.35%;" class="columns is-centered">
           
             <video id="matting-video" autoplay controls playsinline height="90%">
@@ -426,6 +435,67 @@
         </div>
       </div>
     </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+  <center><h2 class="title is-3">People</h2></center><br>
+
+    <table id="people" style="margin:auto;width=1000px">
+            <tr>
+                <td></td> <!-- For some reason it scales up the first td.. so adding a dummy td -->
+                <td>
+					<center>
+                    <img src="./static/images/authors/Shraman_Pramanick.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://shramanpramanick.github.io/" target="_blank"  style='font-size:12px'>Shraman Pramanick</a>
+					</center>
+                </td>
+				<td>
+					<center>
+                    <img src="./static/images/authors/Yale_Song.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="http://people.csail.mit.edu/yalesong/home/" target="_blank"  style='font-size:12px'>Yale Song</a>
+					</center>
+                </td>
+				<td>
+					<center>
+                    <img src="./static/images/authors/Sayan_Nag.png"  style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://sayannag.github.io/" target="_blank" style='font-size:12px'>Sayan Nag</a>
+					</center>
+                </td>
+				<td>
+					<center>
+                    <img src="./static/images/authors/Kevin_Lin.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://qinghonglin.github.io/" target="_blank"  style='font-size:12px'>Kevin Lin</a>
+					</center>
+                </td>
+                <td>
+                    <center>
+                    <img src="./static/images/authors/Hardik_Shah.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://www.linkedin.com/in/hardik-shah-75ab5429/" target="_blank"  style='font-size:12px'>Hardik Shah</a>
+					</center>
+                </td>
+               <td>
+                    <center>
+                    <img src="./static/images/authors/Mike_Shou.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://sites.google.com/view/showlab" target="_blank"  style='font-size:12px'>Mike Shou</a>
+					</center>
+                </td>
+				<td>
+                    <center>
+                    <img src="./static/images/authors/Rama_Chellappa.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://engineering.jhu.edu/faculty/rama-chellappa/" target="_blank"  style='font-size:11px'>Rama Chellappa</a>
+					</center>
+                </td>
+				<td>
+                    <center>
+                    <img src="./static/images/authors/Pengchuan_Zhang.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://pzzhang.github.io/pzzhang/" target="_blank"  style='font-size:11px'>Pengchuan Zhang</a>
+					</center>
+                </td>
+            </tr>
+       </table>
 
   </div>
 </section>
