@@ -107,7 +107,7 @@
 
 
 <section class="hero">
-  <div style="margin-bottom:-100px" class="hero-body">
+  <div style="margin-bottom:-80px" class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
@@ -126,6 +126,8 @@
 			<span class="author-block">
               <a href="https://www.linkedin.com/in/hardik-shah-75ab5429/">Hardik Shah</a><sup>2</sup>,
             </span>
+            <p> 
+            </p>
             <span class="author-block">
               <a href="https://sites.google.com/view/showlab">Mike Zheng Shou</a><sup>4</sup>,
             </span>
@@ -222,11 +224,14 @@
 		</center>
       </div>
     </div>
+	
+</div>
+</section>
     <!--/ TL;DR. -->
 	
   <section class="columns is-vcentered interpolation-panel" width=100%>
   <div class="container is-max-desktop">
-    <div class="hero-body">
+    <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
 	<center>
       <h2 class="title is-3">EgoVLPv2 Framework</h2>
       <img src="./static/images/Main_System.gif"
@@ -242,44 +247,33 @@
     </div>
   </div>
   </section>
-  
-  <!-- Abstract. -->
+
+  <section class="section">
+  <div class="container is-max-desktop">
+    
+  <!-- TL;DR. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
+    <center>
+        <div class="content has-text-justified" style='width:750px'>
           <p>
-            Video-language pre-training (VLP) has become increasingly
-			important due to its ability to generalize to various
-			vision and language tasks. However, existing egocentric
-			VLP frameworks utilize separate video and language encoders
-			and learn task-specific cross-modal information only
-			during fine-tuning, limiting the development of a unified
-			system.
-          </p>
-          <p>
-            In this work, we introduce the second generation
-			of egocentric video-language pre-training (<strong>EgoVLPv2</strong>), a
-			significant improvement from the previous generation, by
-			incorporating cross-modal fusion directly into the video and
-			language backbones. <strong>EgoVLPv2</strong> learns strong video-text representation
-			during pre-training and reuses the cross-modal
-			attention modules to support different downstream tasks in
-			a flexible and efficient manner, reducing fine-tuning costs.
-			Moreover, our proposed fusion in the backbone strategy is
-			more lightweight and compute-efficient than stacking additional
-			fusion-specific layers.
-          </p>
-          <p>
-            Extensive experiments on
-			a wide range of VL tasks demonstrate the effectiveness of
-			<strong>EgoVLPv2</strong> by achieving consistent state-of-the-art performance
-			over strong baselines across all downstream.
+            Video-language pre-training (VLP) has become increasingly important due to its ability to generalize to various vision and language tasks. However, existing egocentric VLP frameworks utilize separate video and language encoders and learn task-specific cross-modal information only during fine-tuning, limiting the development of a unified system.
+                </p>
+                <p>
+            In this work, we introduce the second generation of egocentric video-language pre-training (<strong>EgoVLPv2</strong>), a significant improvement from the previous generation, by incorporating cross-modal fusion directly into the video and language backbones. <strong>EgoVLPv2</strong> learns strong video-text representation during pre-training and reuses the cross-modal attention modules to support different downstream tasks in a flexible and efficient manner, reducing fine-tuning costs. Moreover, our proposed fusion in the backbone strategy is more lightweight and compute-efficient than stacking additional fusion-specific layers.
+                </p>
+                <p>
+            Extensive experiments on a wide range of VL tasks demonstrate the effectiveness of <strong>EgoVLPv2</strong> by achieving consistent state-of-the-art performance over strong baselines across all downstream.
           </p>
         </div>
+    </center>
       </div>
     </div>
-    <!--/ Abstract. -->
+  
+</div>
+</section>
+  
   
   <!-- Paper video. -->
     <div class="columns is-centered has-text-centered">
@@ -402,7 +396,7 @@
 
 
 <section class="section">
-  <div class="container is-max-desktop">
+  <div class="container is-max-desktop" style="margin-top:-20px">
   <center><h2 class="title is-3">QFVS Results</h2></center><br>
 
     <div class="columns is-centered">
@@ -411,7 +405,7 @@
       <div class="column" >
         <div class="content">
           <center><h1 style="font-size: 25px;" class="title is-3">Summarized Video 2 of QFVS</h1></center>
-          <center><h1 style="font-size: 15px; margin-top: -13px; color:deeppink"  class="title is-3">Query: All scenes containing stores and hands</h1></center>
+          <center><h1 style="font-size: 15px; margin-top: -13px; color:brown"  class="title is-3">Query: All scenes containing stores and hands</h1></center>
           <video id="dollyzoom" autoplay controls playsinline height="100%">
             <source src="./static/videos/video_2_Trim.mp4"
                     type="video/mp4">
@@ -423,7 +417,7 @@
       <!-- Matting. -->
       <div class="column">
         <center><h1 style="font-size: 25px;" class="title is-3">Summarized Video 3 of QFVS</h1></center>
-        <center><h1 style="font-size: 15px; margin-top: 0px; margin-bottom: 19px; color:deeppink"  class="title is-3">Query: All scenes containing faces and chocolates</h1></center>
+        <center><h1 style="font-size: 15px; margin-top: 0px; margin-bottom: 19px; color:brown"  class="title is-3">Query: All scenes containing faces and chocolates</h1></center>
         <div style="height: 84.35%;" class="columns is-centered">
           
             <video id="matting-video" autoplay controls playsinline height="90%">
@@ -439,13 +433,13 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="container is-max-desktop">
+<!-- <section class="section">
+  <div class="container is-max-desktop" style="margin-top:-70px">
   <center><h2 class="title is-3">People</h2></center><br>
 
-    <table id="people" style="margin:auto;width=1000px">
+    <table id="people" style="width=1000px">
             <tr>
-                <td></td> <!-- For some reason it scales up the first td.. so adding a dummy td -->
+                <td></td>
                 <td>
 					<center>
                     <img src="./static/images/authors/Shraman_Pramanick.png" style='height:100px;width:100px;padding:10px'/><br />
@@ -499,7 +493,7 @@
 
   </div>
 </section>
-
+ -->
 <!-- Animation
     <div class="columns is-centered">
       <div class="column is-full-width">
@@ -564,8 +558,33 @@
     </div>
      -->
 
+<!--
+<section class="section">
+  <div class="container is-max-desktop">
+  <center><h2 class="title is-3" style="padding-top:-100px">Paper</h2></center><br>
+
+        <table id="paper" class="center">
+            <tr>
+                <td>
+                    <a href="https://arxiv.org/pdf/2307.05463.pdf"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px"
+                            src="static/images/paper-screenshot.png" width="100px" /></a>
+                </td>
+                <td></td>
+                <td style="padding-left:30px;padding-top:25px">
+                    <a href="https://arxiv.org/pdf/2307.05463.pdf">EgoVLPv2: Egocentric Video-Language Pre-training with Fusion in the Backbone</a><br />
+                    Shraman Pramanick, Yale Song, Sayan Nag, Kevin Qinghong Lin, Hardik Shah, Mike Zheng Shou, Rama Chellappa, Pengchuan Zhang<br />
+					[<a href="https://arxiv.org/pdf/2307.05463.pdf">arXiv</a>]
+                    [<a href="">code</a>]
+				</td>
+			</tr>
+        </table>
+
+  </div>
+</section>
+-->
+
 <section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
+  <div class="container is-max-desktop content" style="margin-top:-70px">
     <h2 class="title">BibTeX</h2>
     <pre><code>@article{pramanick2023egovlpv2,
   author    = {Pramanick, Shraman and Song, Yale and Nag, Sayan and Qinghong Lin, Kevin and Shah, Hardik and Zheng Shou, Mike and Chellappa, Rama and Zhang, Pengchuan},
@@ -577,8 +596,16 @@
   </div>
 </section>
 
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content" style="margin-top:-70px">
+    <h2 class="title">Acknowledgement</h2>
+This codebase is built on the <a href="https://github.com/showlab/EgoVLP">EgoVLP</a>, <a href="https://github.com/facebookresearch/LaViLa">LaViLa</a>, <a href="https://github.com/microsoft/FIBER">FIBER</a>, and <a href="https://github.com/26hzhang/VSLNet">VSLNet</a> repository. We would like to thank the respective authors for their help, and the Meta AI team for discussions and feedback. Shraman Pramanick and Rama Chellappa were partially supported by a MURI program from the Army Research Office under the grant W911NF17-1-0304. This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. Template of this website is borrowed from <a href="https://nerfies.github.io/">nerfies</a> website.
+</code></pre>
+  </div>
+</section>
 
-<footer class="footer">
+
+<!-- <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
       <a class="icon-link"
@@ -605,7 +632,7 @@
       </div>
     </div>
   </div>
-</footer>
+</footer> -->
 
 </body>
 </html>
