@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VoLTA: Vision-Language Transformer with Weakly-Supervised Local-Feature Alignment</title>
+  
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+<style>
+.container {
+  position: relative;
+}
+
+.text-block {
+  position: relative;
+  top: 0px;
+  right: 0px;
+  margin-left: 5px;
+  width: 97.5%;
+  text-align: center;
+  border-radius:10px 10px 0px 0px;
+  border: 1px solid #787878;
+  background-color: #787878;
+  color: white;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar" style="margin-bottom:-40px" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="index.html">
+            VoLTA
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div style="margin-bottom:-80px" class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">VoLTA: Vision-Language Transformer with Weakly-Supervised Local-Feature Alignment</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://shramanpramanick.github.io/">Shraman Pramanick</a><sup>*1,2</sup>,</span>
+            <span class="author-block">
+              <a href="http://jingli.io/">Li Jing</a><sup>*2</sup>,</span>
+            <span class="author-block">
+              <a href="https://sayannag.github.io/">Sayan Nag</a><sup>*3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://jiachenzhu.github.io/">Jiachen Zhu</a><sup>4</sup>,
+            </span>
+			<span class="author-block">
+              <a href="https://www.linkedin.com/in/hardik-shah-75ab5429/">Hardik Shah</a><sup>2</sup>,
+            </span>
+            <p> 
+            </p>
+            <span class="author-block">
+              <a href="https://en.wikipedia.org/wiki/Yann_LeCun">Yann LeCun</a><sup>2,4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://engineering.jhu.edu/faculty/rama-chellappa/">Rama Chellappa</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Johns Hopkings University,</span>
+            <span class="author-block"><sup>2</sup>Meta AI,</span>
+			<span class="author-block"><sup>3</sup>University of Toronto,</span>
+			<span class="author-block"><sup>4</sup>New York University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+			  <!--
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2307.05463.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video (Coming Soon)</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+			  <!--
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+				 -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    
+	<!-- TL;DR. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">TL;DR</h2>
+		<center>
+        <div class="content has-text-justified" style='width:750px'>
+          <p>
+            TODO
+          </p>
+        </div>
+		</center>
+      </div>
+    </div>
+	
+</div>
+</section>
+    <!--/ TL;DR. -->
+	
+  <section class="columns is-vcentered interpolation-panel" width=100%>
+  <div class="container is-max-desktop">
+    <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+	<center>
+      <h2 class="title is-3">VoLTA Framework</h2>
+      <img src="./static/images/Main_System.png"
+                 class="interpolation-image" width=80%/></center>
+      <p class="content has-text-justified">
+		Computation of four different objectives, L<sub>BT</sub>, L<sub>GOT</sub>, L<sub>MLM</sub>, and L<sub>ITM</sub> by the proposed
+		<strong>VoLTA</strong> framework. Inspired by <a href="https://arxiv.org/abs/2206.07643">Dou et al. (2022a)</a>, <strong>VoLTA</strong> inserts cross-modal attention fusion (CMAF)
+		inside uni-modal backbones with a gating mechanism. During <strong>VoLTA</strong> pre-training, every forward iteration
+		consists of three steps - (i) CMAF is switched off, <strong>VoLTA</strong> acts as dual encoder, L<sub>BT</sub> and L<sub>GOT</sub> are computed.
+		(ii) CMAF is switched on, <strong>VoLTA</strong> acts as fusion encoder, and image-masked caption pair is fed into the
+		model to compute L<sub>MLM</sub>. (iii) CMAF is kept on, randomly sampled image-caption pair is fed into the
+		model to compute L<sub>ITM</sub>. Such a fusion strategy results in a lightweight and flexible model compared to
+		using fusion-specific transformer layers.
+      </p>
+    </div>
+  </div>
+  </section>
+
+  <section class="section">
+  <div class="container is-max-desktop">
+    
+  <!-- TL;DR. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+    <center>
+        <div class="content has-text-justified" style='width:750px'>
+          <p>
+			Vision-language pre-training (VLP) has recently proven highly effective for various uni- and
+			multi-modal downstream applications. However, most existing end-to-end VLP methods use
+			high-resolution image-text-box data to perform well on fine-grained region-level tasks, such
+			as object detection, segmentation, and referring expression comprehension. Unfortunately,
+			such high-resolution images with accurate bounding box annotations are expensive to collect 
+			and use for supervision at scale.
+		  </p>
+
+		  <p>
+			In this work, we propose VoLTA (<strong>V</strong>isi<strong>o</strong>n-<strong>L</strong>anguage
+			<strong>T</strong>ransformer with weakly-supervised local-feature <strong>A</strong>lignment), a new VLP paradigm that
+			only utilizes image-caption data but achieves fine-grained region-level image understanding,
+			eliminating the need for expensive box annotations. VoLTA adopts graph optimal transport-
+			based weakly-supervised alignment on local image patches and text tokens to germinate an
+			<i>explicit</i>, <i>self-normalized</i>, and <i>interpretable</i> low-level matching criterion.
+		  </p>
+
+		  <p>
+			VoLTA pushes multi-modal fusion deep into the uni-modal backbones during pre-training and removes 
+			fusion-specific transformer layers, further reducing memory requirements. Extensive
+			experiments on a wide range of vision- and vision-language downstream tasks demonstrate
+			the effectiveness of VoLTA on fine-grained applications without compromising the coarse-
+			grained downstream performance, often outperforming methods using significantly more
+			caption and box annotations.
+		  </p>
+        </div>
+    </center>
+      </div>
+    </div>
+  
+</div>
+</section>
+  
+  
+  <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+		<br>
+        <h2 class="title is-3">Main Results</h2>
+        <!--<div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div> -->
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+	<!-- <center><p><strong>Cross Attention Visualizations</strong></p></center><br> -->
+      <div id="results-carousel" class="carousel results-carousel">
+		<div class="container">
+			<div class="text-block">
+				<p>REC, Multimodal OD</p>
+			</div>
+			<div class="item item-steve">
+			  <img src="./static/images/refcoco_od.png"
+					 class="interpolation-image" height=100%/>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>VQAv2, NLVR2, IR/TR. Captioning</p>
+			</div>
+			<div class="item item-chair-tp">
+          <img src="./static/images/vqa_nlvr_irtr_cap.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>Unimodal OD, Instance Seg</p>
+			</div>
+			<div class="item item-shiba">
+          <img src="./static/images/unimodal_od_seg.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>Linear Probing</p>
+			</div>
+			<div class="item item-blueshirt">
+          <img src="./static/images/unimodal_clsfcn.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		</div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+		<br>
+        <h2 class="title is-3">Fine-grained Patch-Word Alignment Visualizations</h2>
+        <!--<div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div> -->
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+	<!-- <center><p><strong>Cross Attention Visualizations</strong></p></center><br> -->
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <img src="./static/images/viz1.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+        <div class="item item-chair-tp">
+          <img src="./static/images/viz2.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+        <div class="item item-shiba">
+          <img src="./static/images/viz3.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+        <div class="item item-blueshirt">
+          <img src="./static/images/viz4.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop" style="margin-top:-20px">
+  <center><h2 class="title is-3">Fine Grained Results</h2></center><br>
+
+    <div class="columns is-centered">
+
+      <!-- Visual Effects. -->
+      <div class="column" >
+        <div class="content">
+          <center><h1 style="font-size: 25px; color:brown" " class="title is-3">REC Examples</h1></center>
+          <!-- <center><h1 style="font-size: 15px; margin-top: -13px; color:brown"  class="title is-3">Query: All scenes containing stores and hands</h1></center> -->
+          <img src="./static/images/refcoco_examples.png" height=100%/>
+        </div>
+      </div>
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <div class="column" >
+        <div class="content">
+          <center><h1 style="font-size: 25px; color:brown" " class="title is-3">Multimodal Obj Det Examples</h1></center>
+          <!-- <center><h1 style="font-size: 15px; margin-top: -13px; color:brown"  class="title is-3">Query: All scenes containing stores and hands</h1></center> -->
+          <img src="./static/images/od_examples.png" height=100%/>
+        </div>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop" style="margin-top:-60px">
+  <center><h2 class="title is-3">Coarse Grained Results</h2></center><br>
+
+    <div class="columns is-centered">
+
+      <!-- Visual Effects. -->
+      <div class="column" >
+        <div class="content">
+          <center><h1 style="font-size: 25px; color:brown" " class="title is-3">NLVR2 Examples</h1></center>
+          <!-- <center><h1 style="font-size: 15px; margin-top: -13px; color:brown"  class="title is-3">Query: All scenes containing stores and hands</h1></center> -->
+          <img src="./static/images/nlvr_examples.png" height=100%/>
+        </div>
+      </div>
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <div class="column" >
+        <div class="content">
+          <center><h1 style="font-size: 25px; color:brown" " class="title is-3">VQAv2 Examples</h1></center>
+          <!-- <center><h1 style="font-size: 15px; margin-top: -13px; color:brown"  class="title is-3">Query: All scenes containing stores and hands</h1></center> -->
+          <img src="./static/images/vqa_examples.png" height=100%/>
+        </div>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- <section class="section">
+  <div class="container is-max-desktop" style="margin-top:-70px">
+  <center><h2 class="title is-3">People</h2></center><br>
+
+    <table id="people" style="width=1000px">
+            <tr>
+                <td></td>
+                <td>
+					<center>
+                    <img src="./static/images/authors/Shraman_Pramanick.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://shramanpramanick.github.io/" target="_blank"  style='font-size:12px'>Shraman Pramanick</a>
+					</center>
+                </td>
+				<td>
+					<center>
+                    <img src="./static/images/authors/Yale_Song.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="http://people.csail.mit.edu/yalesong/home/" target="_blank"  style='font-size:12px'>Yale Song</a>
+					</center>
+                </td>
+				<td>
+					<center>
+                    <img src="./static/images/authors/Sayan_Nag.png"  style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://sayannag.github.io/" target="_blank" style='font-size:12px'>Sayan Nag</a>
+					</center>
+                </td>
+				<td>
+					<center>
+                    <img src="./static/images/authors/Kevin_Lin.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://qinghonglin.github.io/" target="_blank"  style='font-size:12px'>Kevin Lin</a>
+					</center>
+                </td>
+                <td>
+                    <center>
+                    <img src="./static/images/authors/Hardik_Shah.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://www.linkedin.com/in/hardik-shah-75ab5429/" target="_blank"  style='font-size:12px'>Hardik Shah</a>
+					</center>
+                </td>
+               <td>
+                    <center>
+                    <img src="./static/images/authors/Mike_Shou.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://sites.google.com/view/showlab" target="_blank"  style='font-size:12px'>Mike Shou</a>
+					</center>
+                </td>
+				<td>
+                    <center>
+                    <img src="./static/images/authors/Rama_Chellappa.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://engineering.jhu.edu/faculty/rama-chellappa/" target="_blank"  style='font-size:11px'>Rama Chellappa</a>
+					</center>
+                </td>
+				<td>
+                    <center>
+                    <img src="./static/images/authors/Pengchuan_Zhang.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://pzzhang.github.io/pzzhang/" target="_blank"  style='font-size:11px'>Pengchuan Zhang</a>
+					</center>
+                </td>
+            </tr>
+       </table>
+
+  </div>
+</section>
+ -->
+<!-- Animation
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Animation</h2>
+
+      
+        <h3 class="title is-4">Interpolating states</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_start.jpg"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+            <p>Start Frame</p>
+          </div>
+          <div class="column interpolation-video-column">
+            <div id="interpolation-image-wrapper">
+              Loading...
+            </div>
+            <input class="slider is-fullwidth is-large is-info"
+                   id="interpolation-slider"
+                   step="1" min="0" max="100" value="0" type="range">
+          </div>
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_end.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+            <p class="is-bold">End Frame</p>
+          </div>
+        </div>
+        <br/>
+ 
+
+        
+        <h3 class="title is-4">Re-rendering the input video</h3>
+        <div class="content has-text-justified">
+          <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="75%">
+            <source src="./static/videos/replay.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        
+
+      </div>
+    </div>
+     -->
+
+<!--
+<section class="section">
+  <div class="container is-max-desktop">
+  <center><h2 class="title is-3" style="padding-top:-100px">Paper</h2></center><br>
+
+        <table id="paper" class="center">
+            <tr>
+                <td>
+                    <a href="https://arxiv.org/pdf/2307.05463.pdf"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px"
+                            src="static/images/paper-screenshot.png" width="100px" /></a>
+                </td>
+                <td></td>
+                <td style="padding-left:30px;padding-top:25px">
+                    <a href="https://arxiv.org/pdf/2307.05463.pdf">EgoVLPv2: Egocentric Video-Language Pre-training with Fusion in the Backbone</a><br />
+                    Shraman Pramanick, Yale Song, Sayan Nag, Kevin Qinghong Lin, Hardik Shah, Mike Zheng Shou, Rama Chellappa, Pengchuan Zhang<br />
+					[<a href="https://arxiv.org/pdf/2307.05463.pdf">arXiv</a>]
+                    [<a href="">code</a>]
+				</td>
+			</tr>
+        </table>
+
+  </div>
+</section>
+-->
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content" style="margin-top:-70px">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{pramanick2023volta,
+  author    = {Pramanick, Shraman and Jing, Li and Nag, Sayan and Zhu, Jiachen and Shah, Hardik and LeCun, Yann and Chellappa, Rama},
+  title     = {VoLTA: Vision-Language Transformer with Weakly-Supervised Local-Feature Alignment},
+  journal   = {TMLR},
+  year      = {2023}
+}
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content" style="margin-top:-70px">
+    <h2 class="title">Acknowledgement</h2>
+This codebase is built on the <a href="https://github.com/zdou0830/METER">METER</a>, <a href="https://github.com/dandelin/ViLT">ViLT</a>, and <a href="https://github.com/microsoft/FIBER">FIBER</a> repositories. We would like to thank the respective authors for their help, and the Meta AI team for discussions and feedback. Shraman Pramanick and Rama Chellappa were partially supported by a MURI program from the Army Research Office under the grant W911NF17-1-0304. This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. Template of this website is borrowed from <a href="https://nerfies.github.io/">nerfies</a> website.
+</code></pre>
+  </div>
+</section>
+
+
+<!-- <footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Template of this website is borrowed from <a
+              href="https://nerfies.github.io/">nerfies</a> website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer> -->
+
+</body>
+</html>
