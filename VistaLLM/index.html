@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="">
+  <meta name="keywords" content="VistaLLM, MultimodalLLM">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VistaLLM</title>
+  
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon_transparent.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+<style>
+.container {
+  position: relative;
+}
+
+.text-block {
+  position: relative;
+  top: 0px;
+  right: 0px;
+  margin-left: 5px;
+  width: 97.5%;
+  text-align: center;
+  border-radius:10px 10px 0px 0px;
+  border: 1px solid #787878;
+  background-color: #787878;
+  color: white;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar" style="margin-bottom:-40px" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="index.html">
+            VistaLLM
+          </a>
+	  <a class="navbar-item" href="https://shramanpramanick.github.io/EgoVLPv2/">
+            EgoVLPv2
+          </a>
+		  <a class="navbar-item" href="https://shramanpramanick.github.io/VoLTA/">
+            VoLTA
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div style="margin-bottom:-80px" class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Jack of All Tasks, Master of Many: Designing General-purpose Coarse-to-Fine Vision-Language Model</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://shramanpramanick.github.io/">Shraman Pramanick</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://guangxinghan.github.io/">Guangxing Han</a><sup>2</sup>,</span>
+			<span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=en&user=PKHKqX0AAAAJ">Rui Hou</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://sayannag.github.io/">Sayan Nag</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/site/sernam">Ser-Nam Lim</a><sup>4</sup>,
+            </span>
+			<p> 
+            </p>
+			<span class="author-block">
+              <a href="https://scholar.google.ca/citations?user=euUV4iUAAAAJ&hl=en">Nicolas Ballas</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://wqfcr.github.io/">Qifan Wang</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://engineering.jhu.edu/faculty/rama-chellappa/">Rama Chellappa</a><sup>1</sup>,
+            </span>
+			<span class="author-block">
+              <a href="https://scholar.google.com/citations?user=WbYAa7IAAAAJ">Amjad Almahairi</a><sup>2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Johns Hopkings University,</span>
+            <span class="author-block"><sup>2</sup>AI at Meta,</span>
+			<span class="author-block"><sup>3</sup>University of Toronto,</span>
+			<span class="author-block"><sup>4</sup>University of Central Florida</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+			  <!--
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Coming Soon)</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+			  <!--
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+				 -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+<section class="section">
+  <div class="container is-max-desktop">
+    
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">TL;DR</h2>
+		<center>
+        <div class="content has-text-justified" style='width:100%'>
+          <p>
+            TBD.
+		  </p>
+        </div>
+		</center>
+      </div>
+    </div>
+	
+</div>
+</section>
+-->
+
+<section class="section">
+  <div class="container is-max-desktop" style="margin-top:-0px">
+  <center><h2 class="title is-3">Primary Contributions</h2></center><br>
+
+    <div class="columns is-centered">
+
+      <!-- Visual Effects. -->
+      <div class="column">
+        <div class="content">
+          <p class="content has-text-justified" style='width:100%'>
+		  <ul>
+			<li><p class="content has-text-justified" style='width:100%'><strong>VistaLLM:</strong> We introduce <span style="color: #997300;">VistaLLM</span>, a powerful general-purpose vision system 
+			that integrates coarse- and fine-grained vision-language reasoning and grounding tasks over single and 
+			multiple input images into a unified framework.</p></li>
+			<li><p class="content has-text-justified" style='width:100%'><strong>Novel Sampling Algorithm:</strong> To efficiently convert segmentation masks into a sequence, 
+			we propose a <span style="color: #997300;">gradient-aware adaptive contour sampling scheme</span>, 
+			which improves over previously used uniform sampling by 3-4 mIoU scores on different segmentation benchmarks.</p></li>
+			<li><p class="content has-text-justified" style='width:100%'><strong>CoinIt Dataset:</strong> To train VistaLLM on a versatile form of vision and language tasks, 
+			we propose <u><span style="color: #997300;">Co</span></u>arse-to-f<u><span style="color: #997300;">in</span></u>e <u><span style="color: #997300;">I</span></u>nstruction-<u><span style="color: #997300;">t</span></u>uning) Dataset, which contains 6.8M samples</p></li>
+			<!--<li><p class="content has-text-justified" style='width:100%'>We address the lack of publicly-available multi-image region-level datasets 
+			by proposing a novel task, AttCoSeg (<strong>Att</strong>ribute-level <strong>Co</strong>-<strong>Seg</strong>mentation), which aims to recognize 
+			input images which have objects with common attributes (shape, color, size, position), and segment those objects. 
+			AttCoSeg contains 685k training samples, and helps VistaLLM to gain significant generalizable reasoning and 
+			grounding capability over multiple input images.</p></li>-->
+		  </ul>
+		  </p>
+        </div>
+      </div>
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <div class="column" >
+        <div class="content">
+		<img src="./static/images/radar.png" height=100%/>
+        </div>
+      </div>
+	  
+      </div>
+	  
+	  <div class="container is-max-desktop" style="margin-top:-43px">
+	  <div class="content">
+	  <p class="content has-text-justified" style='width:100%'>
+	  <ul class="no-bullets">
+		<p class="content has-text-justified" style='width:100%'>ranging over four broad categories of tasks - single-image coarse-level, single-image region-level, multi-image coarse-level, 
+		and multi-image region-level.</p>
+	  </ul>
+	  <ul>
+		<li><p class="content has-text-justified" style='width:100%;margin-top:-10px'><strong>Novel Task:</strong> We address the lack of publicly-available multi-image region-level datasets 
+		by proposing a novel task, <u><span style="color: #997300;">Att</span></u>ribute-level <u><span style="color: #997300;">Co</span></u>-<u><span style="color: #997300;">Seg</span></u>mentation, which aims to recognize 
+		input images which have objects with common attributes (shape, color, size, position), and segment those objects. 
+		AttCoSeg contains 685k training samples, and helps VistaLLM to gain significant generalizable reasoning and 
+		grounding capability over multiple input images.</p></li>
+	  </ul>
+	  </p>
+	  </div>
+	  </div>
+    </div>
+
+  </div>
+</section>
+	
+  <section class="columns is-vcentered interpolation-panel" width=100%>
+  <div class="container is-max-desktop">
+    <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+	<center>
+      <h2 class="title is-3"><img src="./static/images/favicon_transparent.png" alt="VistaLLM" width="45" style="vertical-align: bottom;">VistaLLM</h2>
+      <img src="./static/images/Main_System_transparent_bg.png"
+                 class="interpolation-image" width=80%/></center>
+	  </br>
+      <p class="content has-text-justified">
+		Overview of the proposed system - <strong>VistaLLM</strong>, which integrates single- and multi-image coarse- and fine-grained visionlanguage tasks 
+		into a unified general-purpose framework. VistaLLM contains three key design modules - (i) image encoder to extract
+		the global image embedding, (ii) instruction-guided image tokenizer, which refines and compresses the global image embeddings using
+		task instruction, enabling the model to filter the necessary visual information required for the current task, and (iii) LLM (Vicuna)-
+		based decoder to jointly process image and language features, and generate the desired output. VistaLLM uses a gradient-aware adaptive
+		sampling technique to efficiently represent segmentation masks as a point sequence. All parameters except the
+		image encoder are trained in stage 1, while only the image tokenizer is fine-tuned in stage 2.
+      </p>
+    </div>
+  </div>
+  </section>
+<!--
+  <section class="section">
+  <div class="container is-max-desktop">
+    
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-max-desktop">
+        <h2 class="title is-3">Abstract</h2>
+    <center>
+        <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+          <p class="content has-text-justified" style='width:100%'>
+			The ability of large language models (LLMs) to process 
+			visual inputs has given rise to general-purpose vision systems,
+			unifying various vision-language (VL) tasks by instruction tuning.
+			However, due to the enormous diversity in
+			input-output formats in the vision domain, existing general
+			purpose models fail to successfully integrate segmentation
+			and multi-image inputs with coarse-level tasks into a single
+			framework.
+		  </p>
+
+		  <p class="content has-text-justified" style='width:100%'>
+			In this work, we introduce <strong>VistaLLM</strong>, a powerful 
+			visual system that addresses coarse- and fine-grained VL
+			tasks over single and multiple input images using a unified
+			framework. VistaLLM utilizes an instruction-guided image
+			tokenizer that filters global embeddings using task descriptions 
+			to extract compressed and refined features from numerous images. 
+			Moreover, VistaLLM employs a gradient aware adaptive sampling technique
+			to represent binary segmentation masks as sequences, significantly improving over 
+			previously used uniform sampling.
+		  </p>
+
+		  <p class="content has-text-justified" style='width:100%'>
+			To bolster the desired capability of VistaLLM, 
+			we curate CoinIt, a comprehensive coarse-to-fine instruction tuning dataset with 6.8M samples. 
+			We also address the lack of multi-image grounding 
+			datasets by introducing a novel task, AttCoSeg (Attribute level Co-Segmentation), 
+			which boosts the model’s reasoning and grounding capability over multiple input images.
+			Extensive experiments on a wide range of V- and VL tasks 
+			demonstrate the effectiveness of VistaLLM by achieving 
+			consistent state-of-the-art performance over strong baselines across all downstream tasks.
+		  </p>
+        </div>
+    </center>
+      </div>
+    </div>
+  
+</div>
+</section>
+-->
+  <section class="columns is-vcentered" width=100%>
+  <div class="container is-max-desktop">
+    <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+	<center>
+      <h2 class="title is-3">Adaptive Sampling</h2>
+      <img src="./static/images/Adaptive_Sampling_Illustration.png"
+                 class="interpolation-image" width=100%/></center>
+	  </br>
+      <p class="content has-text-justified">
+		Visualization of uniform and adaptive sampling strategies. 
+		(left) illustration of sampled points and comparison of reassembled curves, 
+		(right) illustration of sampled points and comparison of reassembled masks. 
+		We efficiently transform binary masks into a sequence of points by proposing 
+		a gradient-aware adaptive contour sampling scheme, which significantly improves 
+		over the naive uniform sampling technique previously used for sequence-to-sequence segmentation tasks.
+      </p>
+    </div>
+  </div>
+  </section>
+
+  
+  
+  <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+		<br>
+        <h2 class="title is-3">Main Results</h2>
+        <!--<div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div> -->
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+	<!-- <center><p><strong>Cross Attention Visualizations</strong></p></center><br> -->
+      <div id="results-carousel" class="carousel results-carousel">
+		<div class="container">
+			<div class="text-block">
+				<p>VQAv2, Captioning</p>
+			</div>
+			<div class="item item-steve">
+			  <img src="./static/tables/vqav2_captioning.png"
+					 class="interpolation-image" height=100%/>
+			</div>
+		</div>
+		<div class="container">
+			<div class="text-block">
+				<p>REC</p>
+			</div>
+			<div class="item item-steve">
+			  <img src="./static/tables/rec.png"
+					 class="interpolation-image" height=100%/>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>RES</p>
+			</div>
+			<div class="item item-chair-tp">
+          <img src="./static/tables/res.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>GREC, GRES</p>
+			</div>
+			<div class="item item-shiba">
+          <img src="./static/tables/grec_gres.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>LookTwice-QA</p>
+			</div>
+			<div class="item item-blueshirt">
+          <img src="./static/tables/looktwiceQA.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>VCR</p>
+			</div>
+			<div class="item item-blueshirt">
+          <img src="./static/tables/vcr.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>TextVQA, IconQA, HM</p>
+			</div>
+			<div class="item item-blueshirt">
+          <img src="./static/tables/textvqa_iconqa_hm.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>POPE</p>
+			</div>
+			<div class="item item-blueshirt">
+          <img src="./static/tables/pope.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>NLVR</p>
+			</div>
+			<div class="item item-blueshirt">
+          <img src="./static/tables/nlvr.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		<div class="container">
+			<div class="text-block">
+				<p>CoSeg</p>
+			</div>
+			<div class="item item-blueshirt">
+          <img src="./static/tables/coseg.png"
+                 class="interpolation-image" height=100%/>
+        </div>
+		</div>
+		
+		</div>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-max-desktop">
+        <h2 class="title is-3">Multi-round Conversational Example</h2>
+    <center>
+        <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+		  <center>
+		  <img src="./static/images/Appendix_Conversation-1.png"
+					 class="interpolation-image" width=100%/></center>
+          <p class="content has-text-justified" style='width:100%'>
+			Multi-round Conversational Ability of VistaLLM-13B. The images are taken from COCO. VistaLLM can address all
+			possible grounding and reasoning tasks across single and multiple input images.
+		  </p>		
+        </div>
+    </center>
+      </div>
+    </div>
+	
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-max-desktop">
+        <h2 class="title is-3">Referring Expression Comprehension (REC)</h2>
+    <center>
+        <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+		  <center>
+		  <img src="./static/images/Appendix_REC-1.png"
+					 class="interpolation-image" width=100%/></center>
+          <p class="content has-text-justified" style='width:100%'>
+			Referring Expression Comprehension (REC) on RefCOCO, RefCOCO+ and RefCOCOg by VistaLLM-13B. REC aims 
+			to generate a bounding box around a single object described by a referring expression.
+		  </p>
+        </div>
+    </center>
+      </div>
+    </div>
+	
+	<div class="columns is-centered has-text-centered">
+      <div class="column is-max-desktop">
+        <h2 class="title is-3">Referring Expression Segmentation (RES)</h2>
+    <center>
+        <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+		  <center>
+		  <img src="./static/images/Appendix_RES-1.png"
+					 class="interpolation-image" width=100%/></center>
+          <p class="content has-text-justified" style='width:100%'>
+			Referring Expression Segmentation (RES) on RefCOCO, RefCOCO+ and RefCOCOg by VistaLLM-13B. RES aims to
+			segment a single object described by a referring expression.
+		  </p>		
+        </div>
+    </center>
+      </div>
+    </div>
+	
+	<div class="columns is-centered has-text-centered">
+      <div class="column is-max-desktop">
+        <h2 class="title is-3">Generalized Referring Expression Comprehension (GREC)</h2>
+    <center>
+        <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+		  <center>
+		  <img src="./static/images/Appendix_GREC-1.png"
+					 class="interpolation-image" width=100%/></center>
+          <p class="content has-text-justified" style='width:100%'>
+			Generalized Referring Expression Comprehension (GREC) on gRefCOCO by VistaLLM-13B. GREC aims to identify
+			all objects described by a referring expression and draw bounding boxes around every referred object. GREC also contains no-target
+			expressions where the output is empty.
+		  </p>		
+        </div>
+    </center>
+      </div>
+    </div>
+	
+	<div class="columns is-centered has-text-centered">
+      <div class="column is-max-desktop">
+        <h2 class="title is-3">Generalized Referring Expression Segmentation (GRES)</h2>
+    <center>
+        <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+		  <center>
+		  <img src="./static/images/Appendix_GRES-1.png"
+					 class="interpolation-image" width=100%/></center>
+          <p class="content has-text-justified" style='width:100%'>
+			Generalized Referring Expression Segmentation (GRES) on gRefCOCO by VistaLLM-13B. GRES aims to identify all
+			objects described by a referring expression and segment every referred object. GRES also contains no-target samples where the output is
+			empty.
+		  </p>		
+        </div>
+    </center>
+      </div>
+    </div>
+	
+	<div class="columns is-centered has-text-centered">
+      <div class="column is-max-desktop">
+        <h2 class="title is-3">Image Captioning</h2>
+    <center>
+        <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+		  <center>
+		  <img src="./static/images/Appendix_Caption-1.png"
+					 class="interpolation-image" width=100%/></center>
+          <p class="content has-text-centered" style='width:100%'>
+			Image Captioning on COCO by VistaLLM-13B, which aims to generate a short holistic description of the input image.
+		  </p>		
+        </div>
+    </center>
+      </div>
+    </div>
+	
+	<div class="columns is-centered has-text-centered">
+      <div class="column is-max-desktop">
+        <h2 class="title is-3">VQAv2</h2>
+    <center>
+        <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+		  <center>
+		  <img src="./static/images/Appendix_VQAv2-1.png"
+					 class="interpolation-image" width=100%/></center>
+          <p class="content has-text-centered" style='width:100%'>
+			VQAv2 by VistaLLM-13B, which aims to answer direct questions based on an input image.
+		  </p>		
+        </div>
+    </center>
+      </div>
+    </div>
+	
+	<div class="columns is-centered has-text-centered">
+      <div class="column is-max-desktop">
+        <h2 class="title is-3">LookTwice-QA</h2>
+    <center>
+        <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+		  <center>
+		  <img src="./static/images/Appendix_LookTwiceQA-1.png"
+					 class="interpolation-image" width=100%/></center>
+          <p class="content has-text-justified" style='width:100%'>
+			Box Question Answering (BoxQA) and Point Question Answering (PointQA) on LookTwice-QA by VistaLLM-13B.
+			Given a question about a specified region in the image, either mentioning a point or a box, this task needs to comprehend the area in the
+			context of the whole image to produce the correct answer.
+		  </p>		
+        </div>
+    </center>
+      </div>
+    </div>
+	
+	<div class="columns is-centered has-text-centered">
+      <div class="column is-max-desktop">
+        <h2 class="title is-3">POPE</h2>
+    <center>
+        <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+		  <center>
+		  <img src="./static/images/Appendix_POPE-1.png"
+					 class="interpolation-image" width=100%/></center>
+          <p class="content has-text-justified" style='width:100%'>
+			Object Hallucination Evaluation of VistaLLM-13B on POPE benchmark. The task aims to input a query inquiring about
+			the existence of an object, and the model is expected to generate a response in the form of either “yes/no.”
+		  </p>		
+        </div>
+    </center>
+      </div>
+    </div>
+	
+	<div class="columns is-centered has-text-centered">
+      <div class="column is-max-desktop">
+        <h2 class="title is-3">NLVR2</h2>
+    <center>
+        <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+		  <center>
+		  <img src="./static/images/Appendix_NLVR-1.png"
+					 class="interpolation-image" width=100%/></center>
+          <p class="content has-text-justified" style='width:100%'>
+			Natural Language for Visual Reasoning (NLVR2) by VistaLLM-13B. Given a pair of input images and a question, the
+			model must reason both images to produce the answer correctly.
+		  </p>		
+        </div>
+    </center>
+      </div>
+    </div>
+	
+	<div class="columns is-centered has-text-centered">
+      <div class="column is-max-desktop">
+        <h2 class="title is-3">CoSeg and AttCoSeg</h2>
+    <center>
+        <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+		  <center>
+		  <img src="./static/images/Appendix_CoSeg_AttCoSeg-1.png"
+					 class="interpolation-image" width=100%/></center>
+          <p class="content has-text-justified" style='width:100%'>
+			CoSeg and AttCoSeg by VistaLLM-13B. Given a set of input images, CoSeg aims to find and segment a common object in
+			every image. AttCoSeg is the more generalized scenario where a pair of images among all inputs contains a common object with similar
+			attributes. VistaLLM is first expected to identify two images with the common object and then segment the object in both images.
+		  </p>		
+        </div>
+    </center>
+      </div>
+    </div>
+  
+</div>
+</section>
+
+<!-- <section class="section">
+  <div class="container is-max-desktop" style="margin-top:-70px">
+  <center><h2 class="title is-3">People</h2></center><br>
+
+    <table id="people" style="width=1000px">
+            <tr>
+                <td></td>
+                <td>
+					<center>
+                    <img src="./static/images/authors/Shraman_Pramanick.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://shramanpramanick.github.io/" target="_blank"  style='font-size:12px'>Shraman Pramanick</a>
+					</center>
+                </td>
+				<td>
+					<center>
+                    <img src="./static/images/authors/Yale_Song.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="http://people.csail.mit.edu/yalesong/home/" target="_blank"  style='font-size:12px'>Yale Song</a>
+					</center>
+                </td>
+				<td>
+					<center>
+                    <img src="./static/images/authors/Sayan_Nag.png"  style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://sayannag.github.io/" target="_blank" style='font-size:12px'>Sayan Nag</a>
+					</center>
+                </td>
+				<td>
+					<center>
+                    <img src="./static/images/authors/Kevin_Lin.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://qinghonglin.github.io/" target="_blank"  style='font-size:12px'>Kevin Lin</a>
+					</center>
+                </td>
+                <td>
+                    <center>
+                    <img src="./static/images/authors/Hardik_Shah.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://www.linkedin.com/in/hardik-shah-75ab5429/" target="_blank"  style='font-size:12px'>Hardik Shah</a>
+					</center>
+                </td>
+               <td>
+                    <center>
+                    <img src="./static/images/authors/Mike_Shou.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://sites.google.com/view/showlab" target="_blank"  style='font-size:12px'>Mike Shou</a>
+					</center>
+                </td>
+				<td>
+                    <center>
+                    <img src="./static/images/authors/Rama_Chellappa.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://engineering.jhu.edu/faculty/rama-chellappa/" target="_blank"  style='font-size:11px'>Rama Chellappa</a>
+					</center>
+                </td>
+				<td>
+                    <center>
+                    <img src="./static/images/authors/Pengchuan_Zhang.png" style='height:100px;width:100px;padding:10px'/><br />
+                    <a href="https://pzzhang.github.io/pzzhang/" target="_blank"  style='font-size:11px'>Pengchuan Zhang</a>
+					</center>
+                </td>
+            </tr>
+       </table>
+
+  </div>
+</section>
+ -->
+<!-- Animation
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Animation</h2>
+
+      
+        <h3 class="title is-4">Interpolating states</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_start.jpg"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+            <p>Start Frame</p>
+          </div>
+          <div class="column interpolation-video-column">
+            <div id="interpolation-image-wrapper">
+              Loading...
+            </div>
+            <input class="slider is-fullwidth is-large is-info"
+                   id="interpolation-slider"
+                   step="1" min="0" max="100" value="0" type="range">
+          </div>
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_end.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+            <p class="is-bold">End Frame</p>
+          </div>
+        </div>
+        <br/>
+ 
+
+        
+        <h3 class="title is-4">Re-rendering the input video</h3>
+        <div class="content has-text-justified">
+          <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="75%">
+            <source src="./static/videos/replay.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        
+
+      </div>
+    </div>
+     -->
+
+<!--
+<section class="section">
+  <div class="container is-max-desktop">
+  <center><h2 class="title is-3" style="padding-top:-100px">Paper</h2></center><br>
+
+        <table id="paper" class="center">
+            <tr>
+                <td>
+                    <a href="https://arxiv.org/pdf/2307.05463.pdf"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px"
+                            src="static/images/paper-screenshot.png" width="100px" /></a>
+                </td>
+                <td></td>
+                <td style="padding-left:30px;padding-top:25px">
+                    <a href="https://arxiv.org/pdf/2307.05463.pdf">EgoVLPv2: Egocentric Video-Language Pre-training with Fusion in the Backbone</a><br />
+                    Shraman Pramanick, Yale Song, Sayan Nag, Kevin Qinghong Lin, Hardik Shah, Mike Zheng Shou, Rama Chellappa, Pengchuan Zhang<br />
+					[<a href="https://arxiv.org/pdf/2307.05463.pdf">arXiv</a>]
+                    [<a href="">code</a>]
+				</td>
+			</tr>
+        </table>
+
+  </div>
+</section>
+-->
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content" style="margin-top:-70px">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>TBD
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content" style="margin-top:-70px">
+    <h2 class="title">Acknowledgement</h2>
+This codebase is built on the <a href="https://github.com/haotian-liu/LLaVA">LLaVa</a> and <a href="https://github.com/shikras/shikra">Shikra</a> repository. 
+We would like to thank the respective authors for their help, 
+and the Meta AI team for discussions and feedback. 
+Shraman Pramanick and Rama Chellappa were partially supported by a ONR MURI grant N00014-20-1-2787. 
+This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. 
+Template of this website is borrowed from <a href="https://nerfies.github.io/">nerfies</a> website.
+</code></pre>
+  </div>
+</section>
+
+
+<!-- <footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Template of this website is borrowed from <a
+              href="https://nerfies.github.io/">nerfies</a> website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer> -->
+
+</body>
+</html>
