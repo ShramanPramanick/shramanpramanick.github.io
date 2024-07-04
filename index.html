@@ -114,6 +114,12 @@
     .custom-link:hover {
         text-decoration: underline; /* Add underline on hover */
     }
+
+    img {
+        /* Syntax: box-shadow: horizontal-offset vertical-offset blur-radius spread-radius color; */
+        box-shadow: 0.5px 0.5px 1.5px 0.5px rgba(0, 0, 0, 1);
+        /* Adjust the values and color as needed */
+    }
   </style>
 
 </head>
@@ -145,7 +151,7 @@
               </p>
             </td>
             <td style="padding:0.75%;width:28%;max-width:28%">
-              <a href="images/JonBarron.jpg"><img style="width:90%;max-width:90%" alt="profile photo" src="images/Shraman_Photo_2023_Cropped.png" class="hoverZoomLink"></a>
+              <a href="images/JonBarron.jpg"><img style="width:90%;max-width:90%; box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0)" alt="profile photo" src="images/Shraman_Photo_2023_Cropped.png" class="hoverZoomLink"></a>
             </td>
           </tr>
         </tbody></table>
@@ -245,13 +251,13 @@
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
 
 
-          <tr>
+          <tr bgcolor="#ffffe6">
             <td style="padding:15px;width:25%;vertical-align:middle">
               <div style="text-align: center">
               <img src="images/SPIQA_Tasks_2.png" alt="SPIQA" width="180" height="76.5">
             </div>
             </td>
-            <td width="75%" valign="middle" bgcolor="#ffffe6">
+            <td width="75%" valign="middle">
                 <a href="https://github.com/google/spiqa" class="custom-link"><papertitle>SPIQA: A Dataset for Multimodal Question Answering on Scientific Papers</papertitle></a>
             <br>
             <b>Shraman Pramanick*</b>, <a href="https://engineering.jhu.edu/ece/faculty/rama-chellappa/" class="custom-link">Rama Chellappa</a>, <a href="https://vsubhashini.github.io/" class="custom-link">Subhashini Venugopalan*</a>
@@ -261,14 +267,15 @@
             [Paper] [Project] [<a href="https://github.com/google/spiqa">Code</a>] [<a href="https://huggingface.co/datasets/google/spiqa">Dataset</a>]
             </td>
           </tr>
+          <td><br></td>
 
-          <tr>
+          <tr bgcolor="#ffffe6">
             <td style="padding:15px;width:25%;vertical-align:middle">
               <div style="text-align: center">
               <img src="images/VistaLLM_Sampling.png" alt="VistaLLM_Sampling" width="180" height="80">
             </div>
             </td>
-            <td width="75%" valign="middle" bgcolor="#ffffe6">
+            <td width="75%" valign="middle">
                 <a href="https://arxiv.org/abs/2312.12423" class="custom-link"> <papertitle>Jack of All Tasks, Master of Many: Designing General-purpose Coarse-to-Fine Vision-Language Model</papertitle> </a>         
             <br>
             <b>Shraman Pramanick*</b>, <a href="https://guangxinghan.github.io/" class="custom-link">Guangxing Han*</a>, <a href="https://scholar.google.com/citations?hl=en&user=PKHKqX0AAAAJ" class="custom-link">Rui Hou</a>, <a href="https://sayannag.github.io/" class="custom-link">Sayan Nag</a>, <a href="https://sites.google.com/site/sernam" class="custom-link">Ser-Nam Lim</a>, <a href="https://scholar.google.ca/citations?user=euUV4iUAAAAJ&hl=en" class="custom-link">Nicolas Ballas</a>, <a href="https://wqfcr.github.io/" class="custom-link">Qifan Wang</a>, <a href="https://engineering.jhu.edu/ece/faculty/rama-chellappa/" class="custom-link">Rama Chellappa</a>, <a href="https://scholar.google.com/citations?user=WbYAa7IAAAAJ" class="custom-link">Amjad Almahairi</a>    
@@ -278,6 +285,7 @@
             [<a href="https://arxiv.org/abs/2312.12423">Paper</a>] [<a href="https://shramanpramanick.github.io/VistaLLM/">Project</a>] [Code]
             </td>
           </tr>
+          <td><br></td>
 
 
           <tr>
@@ -296,15 +304,16 @@
             [<a href="https://arxiv.org/pdf/2311.18259.pdf">Paper</a>] [<a href="https://ego-exo4d-data.org/">Project</a>] [<a href="https://ai.meta.com/blog/ego-exo4d-video-learning-perception/">Blog</a>] [<a href="https://youtu.be/GdooXEBAnI8">Video</a>]
             </td>
           </tr>
+          <td><br></td>
 
 
-          <tr>
+          <tr bgcolor="#ffffe6">
             <td style="padding:15px;width:25%;vertical-align:middle">
               <divI style="text-align: center">
               <img src="images/radar_egovlpv2-transparent.png" alt="EgoVLPv2" width="180" height="165">
             </div>
             </td>
-            <td width="75%" valign="middle" bgcolor="#ffffe6">
+            <td width="75%" valign="middle">
                 <a href="https://arxiv.org/pdf/2307.05463.pdf" class="custom-link"> <papertitle>EgoVLPv2: Egocentric Video-Language Pre-training with Fusion in the Backbone</papertitle></a>           
             <br>
             <b>Shraman Pramanick</b>, <a href="http://people.csail.mit.edu/yalesong/home/" class="custom-link">Yale Song</a>, <a href="https://sayannag.github.io/" class="custom-link">Sayan Nag</a>, <a href="https://qinghonglin.github.io/" class="custom-link">Kevin Qinghong Lin</a>, <a href="https://www.linkedin.com/in/hardik-shah-75ab5429/" class="custom-link">Hardik Shah</a>, <a href="https://sites.google.com/view/showlab" class="custom-link">Mike Z. Shou</a>, <a href="https://engineering.jhu.edu/ece/faculty/rama-chellappa/" class="custom-link">Rama Chellappa</a>, <a href="https://qinghonglin.github.io/" class="custom-link">Pengchuan Zhang</a>    
@@ -314,6 +323,7 @@
             [<a href="https://arxiv.org/pdf/2307.05463.pdf">Paper</a>] [<a href="https://github.com/facebookresearch/EgoVLPv2">Code</a>] [<a href="https://shramanpramanick.github.io/EgoVLPv2/">Project</a>]
             </td>
           </tr>
+          <td><br></td>
 
 
           <tr>
@@ -332,15 +342,16 @@
             [<a href="https://arxiv.org/pdf/2307.16715.pdf">Paper</a>] [<a href="https://github.com/showlab/UniVTG">Code</a>]
             </td>
           </tr>
+          <td><br></td>
 
 
-          <tr>
+          <tr bgcolor="#ffffe6">
             <td style="padding:15px;width:25%;vertical-align:middle;padding-right:20px">
               <div style="text-align: center">
-              <img src="images/VoLTA_Alignment.png" alt="VoLTA" width="180" height="135">
+              <img src="images/VoLTA_Alignment.png" alt="VoLTA" width="180" height="135" class="center">
             </div>
             </td>
-            <td width="75%" valign="middle" bgcolor="#ffffe6">
+            <td width="75%" valign="middle">
               <a href="https://arxiv.org/pdf/2210.04135.pdf" class="custom-link"> <papertitle>VoLTA: Vision-Language Transformer with Weakly-Supervised Local-Feature Alignment</papertitle></a>           
             <br>
             <b>Shraman Pramanick*</b>, <a href="http://jingli.io/" class="custom-link">Li Jing*</a>, <a href="https://sayannag.github.io/" class="custom-link">Sayan Nag*</a>, <a href="https://jiachenzhu.github.io/" class="custom-link">Jiachen Zhu</a>, <a href="https://www.linkedin.com/in/hardik-shah-75ab5429/" class="custom-link">Hardik Shah</a>, <a href="https://en.wikipedia.org/wiki/Yann_LeCun" class="custom-link">Yann LeCun</a>, <a href="https://engineering.jhu.edu/faculty/rama-chellappa/" class="custom-link">Rama Chellappa</a>
@@ -350,6 +361,7 @@
             [<a href="https://arxiv.org/pdf/2210.04135.pdf">Paper</a>] [<a href="https://github.com/ShramanPramanick/VoLTA">Code</a>] [<a href="https://shramanpramanick.github.io/VoLTA/">Project</a>] </p>
             </td>
           </tr>
+          <td><br></td>
 
           <tr>
             <td style="padding:15px;width:25%;vertical-align:middle">
@@ -367,6 +379,7 @@
             [<a href="https://arxiv.org/pdf/2204.13861.pdf">Paper</a>] [<a href="https://github.com/ShramanPramanick/Transformer_Based_Geo-localization">Code + Data</a>] [<a href="https://www.cis.jhu.edu/~shraman/TransLocator/ECCV_2022_TransLocator_Slides.pdf">Slides</a>] [<a href="https://www.cis.jhu.edu/~shraman/TransLocator/TransLocator_Poster.pdf">Poster</a>] [<a href="https://www.cis.jhu.edu/~shraman/TransLocator/TransLocator_Presentation.mp4">Video</a>] </p>
             </td>
           </tr>
+          <td><br></td>
 
           <tr>
             <td style="padding:15px;width:25%;vertical-align:middle">
@@ -384,7 +397,9 @@
             [<a href="https://arxiv.org/pdf/2110.10949.pdf">Paper</a>] [<a href="https://www.cis.jhu.edu/~shraman/MuLOT/WACV_2022_MuLOT_slides.pdf">Slides</a>] [<a href="https://www.cis.jhu.edu/~shraman/MuLOT/MuLOT_Poster.pdf">Poster</a>] [<a href="https://www.cis.jhu.edu/~shraman/MuLOT/MuLOT_Presentation.mp4">Video</a>] </p>
             </td>
           </tr>
+          <td><br></td>
 
+          <tr>
             <td style="padding:15px;width:25%;vertical-align:middle">
               <div style="text-align: center;">
               <img src="images/MOMENTA_System.png" alt="MuLOT" width="180" height="70" class="center">
@@ -400,6 +415,7 @@
             [<a href="https://arxiv.org/pdf/2109.05184.pdf">Paper</a>] [<a href="https://github.com/lcs2-iiitd/momenta">Code + Data</a>] [<a href="https://www.cis.jhu.edu/~shraman/MOMENTA_poster.pdf">Poster</a>] [<a href="https://www.cis.jhu.edu/~shraman/MOMENTA_slides.pdf">Slides</a>] </p>
             </td>
           </tr>
+          <td><br></td>
 
 
           <tr>
@@ -418,6 +434,7 @@
             [<a href="https://www.sciencedirect.com/science/article/pii/S1746809423001982">Paper</a>] </p>
             </td>
           </tr>
+          <td><br></td>
 
           <tr>
             <td style="padding:15px;width:25%;vertical-align:middle">
@@ -435,6 +452,7 @@
             [<a href="https://aclanthology.org/2021.findings-acl.246.pdf">Paper</a>] [<a href="https://github.com/di-dimitrov/harmeme">Code + Data</a>] [<a href="https://www.cis.jhu.edu/~shraman/ACL_2021_Harmeme_Presentation.pdf">Slides</a>] [<a href="https://www.youtube.com/watch?v=E7TswYcUqd8&t=58s">Video</a>] </p>
             </td>
           </tr>
+          <td><br></td>
 
           <tr>
             <td style="padding:15px;width:25%;vertical-align:middle">
@@ -452,6 +470,7 @@
             [<a href="https://www.sciencedirect.com/science/article/abs/pii/S0950705121004159?casa_token=iJLWbW5cPwAAAAAA:oILGjoOQlOhRlKd2YHoYnqVPSDLSUSc-dwyUk0myxoEBn3T7-adXs4R1RB49KmWtB2d3lMxud0M">Paper</a>] [<a href="https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2FLCS2-IIITD%2Fmultimodal_summ&sa=D&sntz=1&usg=AOvVaw1wtGbFeAnzjsDSliXBjCED">Code + Data</a>] </p>
             </td>
           </tr>
+          <td><br></td>
 
 
           <tr>
@@ -470,6 +489,7 @@
             [<a href="https://ojs.aaai.org/index.php/ICWSM/article/view/18080/17883">Paper</a>] [<a href="https://github.com/LCS2-IIITD/MHA-MEME">Code</a>] [<a href="https://www.cis.jhu.edu/~shraman/icwsm_presentation.pdf">Slides</a>] [<a href="https://www.cis.jhu.edu/~shraman/ICWSM_Research_Highlights.pdf">Poster</a>]
             </td>
           </tr>
+          <td><br></td>
 
 
         </tbody></table>
