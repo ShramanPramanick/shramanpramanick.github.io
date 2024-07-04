@@ -106,6 +106,16 @@
     }
   </style>
 
+  <style>
+    .custom-link {
+        color: black; /* Set the link color to black */
+        text-decoration: none; /* Remove underline by default */
+    }
+    .custom-link:hover {
+        text-decoration: underline; /* Add underline on hover */
+    }
+  </style>
+
 </head>
 <body>
   <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
@@ -163,7 +173,7 @@
         </li>
 	<li> [February, 2024] Invited talk at <a href="https://ccvl.jhu.edu/">CCVL</a> on <a href="https://arxiv.org/pdf/2307.05463.pdf">EgoVLPv2</a> and <a href="https://arxiv.org/pdf/2307.05463.pdf">VistaLLM</a>. Recording can be found <a href="https://www.cis.jhu.edu/~shraman/Presentation_Recordings/AlanLab_Talk_Shraman_16Feb2024.mp4">here</a>.
         </li>
-	<li> [December, 2023] Successfully passed the Graduate Board Oral (GBO) examination. Officially a Ph.D. candidate now. Thanks to my committee members <a href="https://engineering.jhu.edu/faculty/rama-chellappa/">Rama Chellappa</a>, <a href="https://cogsci.jhu.edu/directory/alan-yuille/">Alan Yuille</a>, <a href="https://engineering.jhu.edu/faculty/vishal-patel/">Vishal Patel</a>, <a href="https://www.cs.umd.edu/people/abhinav">Abhinav Shrivastava</a> and <a href="https://engineering.jhu.edu/faculty/anqi-angie-liu/">Anqi Liu</a>.
+	<li> [December, 2023] Successfully passed the Graduate Board Oral (GBO) examination. Officially a Ph.D. candidate now. Thanks to my committee members <a href="https://engineering.jhu.edu/faculty/rama-chellappa/">Rama</a>, <a href="https://cogsci.jhu.edu/directory/alan-yuille/">Alan</a>, <a href="https://engineering.jhu.edu/faculty/vishal-patel/">Vishal</a>, <a href="https://www.cs.umd.edu/people/abhinav">Abhinav</a> and <a href="https://engineering.jhu.edu/faculty/anqi-angie-liu/">Anqi</a>.
         </li>
 	<li> [October, 2023] Joined <b>Google Research</b> as a student researcher. Working with <a href="https://vsubhashini.github.io/">Subhashini</a> on AI for Science.
         </li>
@@ -184,7 +194,7 @@
         </li>
       <li> [July, 2022] 1 paper accepted in <b>ECCV 2022</b>. 
         </li>
-      <li> [May, 2022] Joined <b>Meta AI</b> as a research scientist intern. Working with <a href="https://pzzhang.github.io/pzzhang/">Pengchuan Zhang</a>, <a href="http://jingli.io/">Li Jing</a>, <a href="http://people.csail.mit.edu/yalesong/home/">Yale Song</a>, and <a href="http://yann.lecun.com/">Yann LeCun</a>.
+      <li> [May, 2022] Joined <b>Meta AI</b> as a research scientist intern. Working with <a href="https://pzzhang.github.io/pzzhang/">Pengchuan</a>, <a href="http://jingli.io/">Li</a>, <a href="http://people.csail.mit.edu/yalesong/home/">Yale</a>, and <a href="http://yann.lecun.com/">Yann</a>.
         </li>
       <li> [January, 2022] Attended <b>WACV 2022</b> in person at Waikoloa, Hawaii, and presented our work <a href="https://www.google.com/url?q=https%3A%2F%2Farxiv.org%2Fabs%2F2110.10949&sa=D&sntz=1&usg=AOvVaw1VF3ivOTXAAwz9ZuU8LMu7">Multimodal Learning using Optimal Transport for Sarcasm and Humor Detection</a>.
         </li>
@@ -227,27 +237,45 @@
             <tr>
             <td style="padding:20px;width:100%;vertical-align:middle">
               <a id="news"><heading>Research</heading></a>
-              <p> Representative papers are <span style="background-color: #ffffe2">highlighted</span>.
+              <p> Representative papers are <span style="background-color: #ffffe6">highlighted</span>.
               </p>
             </td>
           </tr>
         </tbody></table>
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
 
-          <tr bgcolor="#ffffe2">
+
+          <tr>
+            <td style="padding:15px;width:25%;vertical-align:middle">
+              <div style="text-align: center">
+              <img src="images/SPIQA_Tasks_2.png" alt="SPIQA" width="180" height="76.5">
+            </div>
+            </td>
+            <td width="75%" valign="middle" bgcolor="#ffffe6">
+                <a href="https://github.com/google/spiqa" class="custom-link"><papertitle>SPIQA: A Dataset for Multimodal Question Answering on Scientific Papers</papertitle></a>
+            <br>
+            <b>Shraman Pramanick*</b>, <a href="https://engineering.jhu.edu/ece/faculty/rama-chellappa/" class="custom-link">Rama Chellappa</a>, <a href="https://vsubhashini.github.io/" class="custom-link">Subhashini Venugopalan*</a>
+            <br>
+            <em><span style="color: brown;">arXiv, 2024</span> </em>
+            <br>
+            [Paper] [Project] [<a href="https://github.com/google/spiqa">Code</a>] [<a href="https://huggingface.co/datasets/google/spiqa">Dataset</a>]
+            </td>
+          </tr>
+
+          <tr>
             <td style="padding:15px;width:25%;vertical-align:middle">
               <div style="text-align: center">
               <img src="images/VistaLLM_Sampling.png" alt="VistaLLM_Sampling" width="180" height="80">
             </div>
             </td>
-            <td width="75%" valign="middle">
-                 <a href=""> <papertitle>Jack of All Tasks, Master of Many: Designing General-purpose Coarse-to-Fine Vision-Language Model</papertitle></a>           
+            <td width="75%" valign="middle" bgcolor="#ffffe6">
+                <a href="https://arxiv.org/abs/2312.12423" class="custom-link"> <papertitle>Jack of All Tasks, Master of Many: Designing General-purpose Coarse-to-Fine Vision-Language Model</papertitle> </a>         
             <br>
-            <b>Shraman Pramanick*</b>, <a href="https://guangxinghan.github.io/">Guangxing Han*</a>, <a href="https://scholar.google.com/citations?hl=en&user=PKHKqX0AAAAJ">Rui Hou</a>, <a href="https://sayannag.github.io/">Sayan Nag</a>, <a href="https://sites.google.com/site/sernam">Ser-Nam Lim</a>, <a href="https://scholar.google.ca/citations?user=euUV4iUAAAAJ&hl=en">Nicolas Ballas</a>, <a href="https://wqfcr.github.io/">Qifan Wang</a>, <a href="https://engineering.jhu.edu/ece/faculty/rama-chellappa/">Rama Chellappa</a>, <a href="https://scholar.google.com/citations?user=WbYAa7IAAAAJ">Amjad Almahairi</a>    
+            <b>Shraman Pramanick*</b>, <a href="https://guangxinghan.github.io/" class="custom-link">Guangxing Han*</a>, <a href="https://scholar.google.com/citations?hl=en&user=PKHKqX0AAAAJ" class="custom-link">Rui Hou</a>, <a href="https://sayannag.github.io/" class="custom-link">Sayan Nag</a>, <a href="https://sites.google.com/site/sernam" class="custom-link">Ser-Nam Lim</a>, <a href="https://scholar.google.ca/citations?user=euUV4iUAAAAJ&hl=en" class="custom-link">Nicolas Ballas</a>, <a href="https://wqfcr.github.io/" class="custom-link">Qifan Wang</a>, <a href="https://engineering.jhu.edu/ece/faculty/rama-chellappa/" class="custom-link">Rama Chellappa</a>, <a href="https://scholar.google.com/citations?user=WbYAa7IAAAAJ" class="custom-link">Amjad Almahairi</a>    
             <br>
-            <em>CVPR, 2024 <b><font color='red'>(Highlight, Top 2.8%)</font></b> </em>
-
-        <p> <a href="https://arxiv.org/abs/2312.12423">Paper</a> | <a href="https://shramanpramanick.github.io/VistaLLM/">Project</a> | Code (Coming Soon)
+            <em><span style="color: brown;">CVPR, 2024 (Highlight, Top 2.8%)</span> </em>
+            <br>
+            [<a href="https://arxiv.org/abs/2312.12423">Paper</a>] [<a href="https://shramanpramanick.github.io/VistaLLM/">Project</a>] [Code]
             </td>
           </tr>
 
@@ -259,30 +287,31 @@
             </div>
             </td>
             <td width="75%" valign="middle">
-                 <a href=""> <papertitle>Ego-Exo4D: Understanding Skilled Human Activity from First- and Third-Person Perspectives</papertitle></a>           
+                <a href="https://arxiv.org/pdf/2311.18259.pdf" class="custom-link"> <papertitle>Ego-Exo4D: Understanding Skilled Human Activity from First- and Third-Person Perspectives</papertitle> </a>          
             <br>
-            <a href="https://www.cs.utexas.edu/users/grauman/">Kristen Grauman </a> et al.
+            <a href="https://www.cs.utexas.edu/users/grauman/" class="custom-link">Kristen Grauman </a> et al.
             <br>
-            <em>CVPR, 2024 <b><font color='red'>(Oral, Top 0.8%)</font></b> </em>
-
-        <p> <a href="https://arxiv.org/pdf/2311.18259.pdf">Paper</a> | <a href="https://ego-exo4d-data.org/">Project</a> | <a href="https://ai.meta.com/blog/ego-exo4d-video-learning-perception/">Blog</a> | <a href="https://youtu.be/GdooXEBAnI8">Video</a>
+            <em><span style="color: brown;">CVPR, 2024 (Oral, Top 0.8%)</span> </em>
+            <br>
+            [<a href="https://arxiv.org/pdf/2311.18259.pdf">Paper</a>] [<a href="https://ego-exo4d-data.org/">Project</a>] [<a href="https://ai.meta.com/blog/ego-exo4d-video-learning-perception/">Blog</a>] [<a href="https://youtu.be/GdooXEBAnI8">Video</a>]
             </td>
           </tr>
 
-          <tr bgcolor="#ffffe2">
+
+          <tr>
             <td style="padding:15px;width:25%;vertical-align:middle">
               <divI style="text-align: center">
               <img src="images/radar_egovlpv2-transparent.png" alt="EgoVLPv2" width="180" height="165">
             </div>
             </td>
-            <td width="75%" valign="middle">
-                 <a href=""> <papertitle>EgoVLPv2: Egocentric Video-Language Pre-training with Fusion in the Backbone</papertitle></a>           
+            <td width="75%" valign="middle" bgcolor="#ffffe6">
+                <a href="https://arxiv.org/pdf/2307.05463.pdf" class="custom-link"> <papertitle>EgoVLPv2: Egocentric Video-Language Pre-training with Fusion in the Backbone</papertitle></a>           
             <br>
-            <b>Shraman Pramanick</b>, <a href="http://people.csail.mit.edu/yalesong/home/">Yale Song</a>, <a href="https://sayannag.github.io/">Sayan Nag</a>, <a href="https://qinghonglin.github.io/">Kevin Qinghong Lin</a>, <a href="https://www.linkedin.com/in/hardik-shah-75ab5429/">Hardik Shah</a>, <a href="https://sites.google.com/view/showlab">Mike Z. Shou</a>, <a href="https://engineering.jhu.edu/ece/faculty/rama-chellappa/">Rama Chellappa</a>, <a href="https://qinghonglin.github.io/">Pengchuan Zhang</a>    
+            <b>Shraman Pramanick</b>, <a href="http://people.csail.mit.edu/yalesong/home/" class="custom-link">Yale Song</a>, <a href="https://sayannag.github.io/" class="custom-link">Sayan Nag</a>, <a href="https://qinghonglin.github.io/" class="custom-link">Kevin Qinghong Lin</a>, <a href="https://www.linkedin.com/in/hardik-shah-75ab5429/" class="custom-link">Hardik Shah</a>, <a href="https://sites.google.com/view/showlab" class="custom-link">Mike Z. Shou</a>, <a href="https://engineering.jhu.edu/ece/faculty/rama-chellappa/" class="custom-link">Rama Chellappa</a>, <a href="https://qinghonglin.github.io/" class="custom-link">Pengchuan Zhang</a>    
             <br>
-            <em>ICCV, 2023</em>
-
-        <p> <a href="https://arxiv.org/pdf/2307.05463.pdf">Paper</a> | <a href="https://github.com/facebookresearch/EgoVLPv2">Code</a> | <a href="https://shramanpramanick.github.io/EgoVLPv2/">Project</a>
+            <em><span style="color: brown;">ICCV, 2023</span></em>
+            <br>
+            [<a href="https://arxiv.org/pdf/2307.05463.pdf">Paper</a>] [<a href="https://github.com/facebookresearch/EgoVLPv2">Code</a>] [<a href="https://shramanpramanick.github.io/EgoVLPv2/">Project</a>]
             </td>
           </tr>
 
@@ -294,31 +323,31 @@
               </div>
             </td>
             <td width="75%" valign="middle">
-                 <a href=""> <papertitle>UniVTG: Towards Unified Video-Language Temporal Grounding</papertitle></a>           
+                <a href="https://arxiv.org/pdf/2307.16715.pdf" class="custom-link"> <papertitle>UniVTG: Towards Unified Video-Language Temporal Grounding</papertitle></a>           
             <br>
-            <a href="https://qinghonglin.github.io/">Kevin Qinghong Lin</a>, <a href="https://qinghonglin.github.io/">Pengchuan Zhang</a>, Joya Chen, <b>Shraman Pramanick</b>, Difei Gao, Alex JP. Wang, Rui Yan, <a href="https://sites.google.com/view/showlab">Mike Z. Shou</a>   
+            <a href="https://qinghonglin.github.io/" class="custom-link">Kevin Qinghong Lin</a>, <a href="https://qinghonglin.github.io/" class="custom-link">Pengchuan Zhang</a>, Joya Chen, <b>Shraman Pramanick</b>, Difei Gao, Alex JP. Wang, Rui Yan, <a href="https://sites.google.com/view/showlab" class="custom-link">Mike Z. Shou</a>   
             <br>
-            <em>ICCV, 2023</em>
-
-        <p> <a href="https://arxiv.org/pdf/2307.16715.pdf">Paper</a> | <a href="https://github.com/showlab/UniVTG">Code</a>
+            <em><span style="color: brown;">ICCV, 2023</span></em>
+            <br>
+            [<a href="https://arxiv.org/pdf/2307.16715.pdf">Paper</a>] [<a href="https://github.com/showlab/UniVTG">Code</a>]
             </td>
           </tr>
 
 
-          <tr bgcolor="#ffffe2">
+          <tr>
             <td style="padding:15px;width:25%;vertical-align:middle;padding-right:20px">
               <div style="text-align: center">
               <img src="images/VoLTA_Alignment.png" alt="VoLTA" width="180" height="135">
             </div>
             </td>
-            <td width="75%" valign="middle">
-                 <a href="https://arxiv.org/pdf/2210.04135.pdf"> <papertitle>VoLTA: Vision-Language Transformer with Weakly-Supervised Local-Feature Alignment</papertitle></a>           
+            <td width="75%" valign="middle" bgcolor="#ffffe6">
+              <a href="https://arxiv.org/pdf/2210.04135.pdf" class="custom-link"> <papertitle>VoLTA: Vision-Language Transformer with Weakly-Supervised Local-Feature Alignment</papertitle></a>           
             <br>
-            <b>Shraman Pramanick*</b>, <a href="http://jingli.io/">Li Jing*</a>, <a href="https://sayannag.github.io/">Sayan Nag*</a>, <a href="https://jiachenzhu.github.io/">Jiachen Zhu</a>, <a href="https://www.linkedin.com/in/hardik-shah-75ab5429/">Hardik Shah</a>, <a href="https://en.wikipedia.org/wiki/Yann_LeCun">Yann LeCun</a>, <a href="https://engineering.jhu.edu/faculty/rama-chellappa/">Rama Chellappa</a>
+            <b>Shraman Pramanick*</b>, <a href="http://jingli.io/" class="custom-link">Li Jing*</a>, <a href="https://sayannag.github.io/" class="custom-link">Sayan Nag*</a>, <a href="https://jiachenzhu.github.io/" class="custom-link">Jiachen Zhu</a>, <a href="https://www.linkedin.com/in/hardik-shah-75ab5429/" class="custom-link">Hardik Shah</a>, <a href="https://en.wikipedia.org/wiki/Yann_LeCun" class="custom-link">Yann LeCun</a>, <a href="https://engineering.jhu.edu/faculty/rama-chellappa/" class="custom-link">Rama Chellappa</a>
             <br>
-            <em>TMLR, 2023</em>
-
-        <p> <a href="https://arxiv.org/pdf/2210.04135.pdf">Paper</a> | <a href="https://github.com/ShramanPramanick/VoLTA">Code</a> | <a href="https://shramanpramanick.github.io/VoLTA/">Project</a> </p>
+            <em><span style="color: brown;">TMLR, 2023</span></em>
+            <br>
+            [<a href="https://arxiv.org/pdf/2210.04135.pdf">Paper</a>] [<a href="https://github.com/ShramanPramanick/VoLTA">Code</a>] [<a href="https://shramanpramanick.github.io/VoLTA/">Project</a>] </p>
             </td>
           </tr>
 
@@ -329,13 +358,13 @@
             </div>
             </td>
             <td width="75%" valign="middle">
-                 <a href="https://arxiv.org/pdf/2204.13861.pdf"> <papertitle>Where in the World is this Image? Transformer-based Geo-localization in the Wild</papertitle></a>           
+                 <a href="https://arxiv.org/pdf/2204.13861.pdf" class="custom-link"> <papertitle>Where in the World is this Image? Transformer-based Geo-localization in the Wild</papertitle></a>
             <br>
-            <b>Shraman Pramanick</b>, <a href="https://ewanowara.github.io/">Ewa Nowara</a>, Joshua Gleason, <a href="https://www.linkedin.com/in/carlos-castillo-7800113a/">Carlos D. Castillo</a>, <a href="https://engineering.jhu.edu/faculty/rama-chellappa/">Rama Chellappa</a>
+            <b>Shraman Pramanick</b>, <a href="https://ewanowara.github.io/" class="custom-link">Ewa Nowara</a>, Joshua Gleason, <a href="https://www.linkedin.com/in/carlos-castillo-7800113a/" class="custom-link">Carlos D. Castillo</a>, <a href="https://engineering.jhu.edu/faculty/rama-chellappa/" class="custom-link">Rama Chellappa</a>
             <br>
-            <em>ECCV, 2022</em>
-
-        <p> <a href="https://arxiv.org/pdf/2204.13861.pdf">Paper</a> | <a href="https://github.com/ShramanPramanick/Transformer_Based_Geo-localization">Code + Data</a> | <a href="https://www.cis.jhu.edu/~shraman/TransLocator/ECCV_2022_TransLocator_Slides.pdf">Slides</a> | <a href="https://www.cis.jhu.edu/~shraman/TransLocator/TransLocator_Poster.pdf">Poster</a> | <a href="https://www.cis.jhu.edu/~shraman/TransLocator/TransLocator_Presentation.mp4">Video</a> </p>
+            <em><span style="color: brown;">ECCV, 2022</span></em>
+            <br>
+            [<a href="https://arxiv.org/pdf/2204.13861.pdf">Paper</a>] [<a href="https://github.com/ShramanPramanick/Transformer_Based_Geo-localization">Code + Data</a>] [<a href="https://www.cis.jhu.edu/~shraman/TransLocator/ECCV_2022_TransLocator_Slides.pdf">Slides</a>] [<a href="https://www.cis.jhu.edu/~shraman/TransLocator/TransLocator_Poster.pdf">Poster</a>] [<a href="https://www.cis.jhu.edu/~shraman/TransLocator/TransLocator_Presentation.mp4">Video</a>] </p>
             </td>
           </tr>
 
@@ -346,30 +375,29 @@
             </div>
             </td>
             <td width="75%" valign="middle">
-                 <a href="https://arxiv.org/pdf/2110.10949.pdf"> <papertitle>Multimodal Learning using Optimal Transport for Sarcasm and Humor Detection</papertitle></a>           
+                 <a href="https://arxiv.org/pdf/2110.10949.pdf" class="custom-link"> <papertitle>Multimodal Learning using Optimal Transport for Sarcasm and Humor Detection</papertitle></a>           
             <br>
-            <b>Shraman Pramanick*</b>, <a href="https://sites.google.com/site/aniketsealiitkgp/home">Aniket Roy*</a>, <a href="https://engineering.jhu.edu/vpatel36/team/vishalpatel/">Vishal M. Patel</a>
+            <b>Shraman Pramanick*</b>, <a href="https://sites.google.com/site/aniketsealiitkgp/home" class="custom-link">Aniket Roy*</a>, <a href="https://engineering.jhu.edu/vpatel36/team/vishalpatel/" class="custom-link">Vishal M. Patel</a>
             <br>
-            <em>WACV, 2022</em>
-
-        <p> <a href="https://arxiv.org/pdf/2110.10949.pdf">Paper</a> | <a href="https://www.cis.jhu.edu/~shraman/MuLOT/WACV_2022_MuLOT_slides.pdf">Slides</a> | <a href="https://www.cis.jhu.edu/~shraman/MuLOT/MuLOT_Poster.pdf">Poster</a> | <a href="https://www.cis.jhu.edu/~shraman/MuLOT/MuLOT_Presentation.mp4">Video</a> </p>
+            <em><span style="color: brown;">WACV, 2022</span></em>
+            <br>
+            [<a href="https://arxiv.org/pdf/2110.10949.pdf">Paper</a>] [<a href="https://www.cis.jhu.edu/~shraman/MuLOT/WACV_2022_MuLOT_slides.pdf">Slides</a>] [<a href="https://www.cis.jhu.edu/~shraman/MuLOT/MuLOT_Poster.pdf">Poster</a>] [<a href="https://www.cis.jhu.edu/~shraman/MuLOT/MuLOT_Presentation.mp4">Video</a>] </p>
             </td>
           </tr>
 
-          <tr bgcolor="#ffffe2">
             <td style="padding:15px;width:25%;vertical-align:middle">
               <div style="text-align: center;">
               <img src="images/MOMENTA_System.png" alt="MuLOT" width="180" height="70" class="center">
             </div>
             </td>
             <td width="75%" valign="middle">
-                 <a href="https://arxiv.org/pdf/2109.05184.pdf"> <papertitle>MOMENTA: A Multimodal Framework for Detecting Harmful Memes and Their Targets</papertitle></a>           
+                 <a href="https://arxiv.org/pdf/2109.05184.pdf" class="custom-link"> <papertitle>MOMENTA: A Multimodal Framework for Detecting Harmful Memes and Their Targets</papertitle></a>           
             <br>
-            <b>Shraman Pramanick*</b>, Shivam Sharma*, Dimitar Dimitrov, <a href="https://www.iiitd.ac.in/shad">Shad Aktar</a>, <a href="https://mbzuai.ac.ae/study/faculty/preslav-nakov">Preslav Nakov</a>, <a href="https://tanmoychak.com/">Tanmoy Chakraborty</a> 
+            <b>Shraman Pramanick*</b>, Shivam Sharma*, Dimitar Dimitrov, <a href="https://www.iiitd.ac.in/shad" class="custom-link">Shad Aktar</a>, <a href="https://mbzuai.ac.ae/study/faculty/preslav-nakov" class="custom-link">Preslav Nakov</a>, <a href="https://tanmoychak.com/" class="custom-link">Tanmoy Chakraborty</a> 
             <br>
-            <em>Findings of EMNLP, 2021</em>
-
-        <p> <a href="https://arxiv.org/pdf/2109.05184.pdf">Paper</a> | <a href="https://github.com/lcs2-iiitd/momenta">Code + Data</a> | <a href="https://www.cis.jhu.edu/~shraman/MOMENTA_poster.pdf">Poster</a> | <a href="https://www.cis.jhu.edu/~shraman/MOMENTA_slides.pdf">Slides</a> </p>
+            <em><span style="color: brown;">Findings of EMNLP, 2021</span></em>
+            <br>
+            [<a href="https://arxiv.org/pdf/2109.05184.pdf">Paper</a>] [<a href="https://github.com/lcs2-iiitd/momenta">Code + Data</a>] [<a href="https://www.cis.jhu.edu/~shraman/MOMENTA_poster.pdf">Poster</a>] [<a href="https://www.cis.jhu.edu/~shraman/MOMENTA_slides.pdf">Slides</a>] </p>
             </td>
           </tr>
 
@@ -381,13 +409,13 @@
             </div>
             </td>
             <td width="75%" valign="middle">
-                 <a href="https://www.sciencedirect.com/science/article/pii/S1746809423001982"> <papertitle>Localizing and Grasping of 3-D Objects by a Vision-Actuated Robot Arm using Brain-Computer Interface</papertitle></a>           
+                 <a href="https://www.sciencedirect.com/science/article/pii/S1746809423001982" class="custom-link"> <papertitle>Localizing and Grasping of 3-D Objects by a Vision-Actuated Robot Arm using Brain-Computer Interface</papertitle></a>           
             <br>
             Arnab Rakshit, <b>Shraman Pramanick</b>, Anurag Bagchi, Saugat Bhattacharyya 
             <br>
-            <em>Biomedical Signal Processing and Control, Elsevier, 2023</em>
-
-        <p> <a href="https://www.sciencedirect.com/science/article/pii/S1746809423001982">Paper</a> </p>
+            <em><span style="color: brown;">Biomedical Signal Processing and Control, Elsevier, 2023</span></em>
+            <br>
+            [<a href="https://www.sciencedirect.com/science/article/pii/S1746809423001982">Paper</a>] </p>
             </td>
           </tr>
 
@@ -398,13 +426,13 @@
             </div>
             </td>
             <td width="75%" valign="middle">
-                 <a href="https://aclanthology.org/2021.findings-acl.246.pdf"> <papertitle>Detecting Harmful Memes and Their Targets </papertitle></a>           
+                 <a href="https://aclanthology.org/2021.findings-acl.246.pdf" class="custom-link"> <papertitle>Detecting Harmful Memes and Their Targets </papertitle></a>           
             <br>
-            <b>Shraman Pramanick</b>, Dimitar Dimitrov, Rituparna Mukherjee, Shivam Sharma, <a href="https://www.iiitd.ac.in/shad">Shad Aktar</a>, <a href="https://mbzuai.ac.ae/study/faculty/preslav-nakov">Preslav Nakov</a>, <a href="https://tanmoychak.com/">Tanmoy Chakraborty</a> 
+            <b>Shraman Pramanick</b>, <a href="" class="custom-link">Dimitar Dimitrov</a>, <a href="" class="custom-link">Rituparna Mukherjee</a>, <a href="" class="custom-link">Shivam Sharma</a>, <a href="https://www.iiitd.ac.in/shad" class="custom-link">Shad Aktar</a>, <a href="https://mbzuai.ac.ae/study/faculty/preslav-nakov" class="custom-link">Preslav Nakov</a>, <a href="https://tanmoychak.com/" class="custom-link">Tanmoy Chakraborty</a> 
             <br>
-            <em>Findings of ACL, 2021</em>
-
-        <p> <a href="https://aclanthology.org/2021.findings-acl.246.pdf">Paper</a> | <a href="https://github.com/di-dimitrov/harmeme">Code + Data</a> | <a href="https://www.cis.jhu.edu/~shraman/ACL_2021_Harmeme_Presentation.pdf">Slides</a> | <a href="https://www.youtube.com/watch?v=E7TswYcUqd8&t=58s">Video</a> </p>
+            <em><span style="color: brown;">Findings of ACL, 2021</span></em>
+            <br>
+            [<a href="https://aclanthology.org/2021.findings-acl.246.pdf">Paper</a>] [<a href="https://github.com/di-dimitrov/harmeme">Code + Data</a>] [<a href="https://www.cis.jhu.edu/~shraman/ACL_2021_Harmeme_Presentation.pdf">Slides</a>] [<a href="https://www.youtube.com/watch?v=E7TswYcUqd8&t=58s">Video</a>] </p>
             </td>
           </tr>
 
@@ -415,13 +443,13 @@
             </div>
             </td>
             <td width="75%" valign="middle">
-                 <a href="https://www.sciencedirect.com/science/article/abs/pii/S0950705121004159?casa_token=iJLWbW5cPwAAAAAA:oILGjoOQlOhRlKd2YHoYnqVPSDLSUSc-dwyUk0myxoEBn3T7-adXs4R1RB49KmWtB2d3lMxud0M"> <papertitle>See, Hear, Read: Leveraging Multimodality with Guided Attention for Abstractive Text Summarization</papertitle></a>           
+                 <a href="https://www.sciencedirect.com/science/article/abs/pii/S0950705121004159?casa_token=iJLWbW5cPwAAAAAA:oILGjoOQlOhRlKd2YHoYnqVPSDLSUSc-dwyUk0myxoEBn3T7-adXs4R1RB49KmWtB2d3lMxud0M" class="custom-link"> <papertitle>See, Hear, Read: Leveraging Multimodality with Guided Attention for Abstractive Text Summarization</papertitle></a>           
             <br>
-            Yash Atri*, <b>Shraman Pramanick*</b>, Vikram Goyal, <a href="https://tanmoychak.com/">Tanmoy Chakraborty</a> 
+            <a href="https://yashkumaratri.github.io/" class="custom-link">Yash Atri*</a>, <b>Shraman Pramanick*</b>, <a href="https://faculty.iiitd.ac.in/~vikram/" class="custom-link">Vikram Goyal</a>, <a href="https://tanmoychak.com/" class="custom-link">Tanmoy Chakraborty</a> 
             <br>
-            <em>Knowledge-Based Systems, Elsevier, 2021</em>
-
-        <p> <a href="https://www.sciencedirect.com/science/article/abs/pii/S0950705121004159?casa_token=iJLWbW5cPwAAAAAA:oILGjoOQlOhRlKd2YHoYnqVPSDLSUSc-dwyUk0myxoEBn3T7-adXs4R1RB49KmWtB2d3lMxud0M">Paper</a> | <a href="https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2FLCS2-IIITD%2Fmultimodal_summ&sa=D&sntz=1&usg=AOvVaw1wtGbFeAnzjsDSliXBjCED">Code + Data</a> </p>
+            <em><span style="color: brown;">Knowledge-Based Systems, Elsevier, 2021</span></em>
+            <br>
+            [<a href="https://www.sciencedirect.com/science/article/abs/pii/S0950705121004159?casa_token=iJLWbW5cPwAAAAAA:oILGjoOQlOhRlKd2YHoYnqVPSDLSUSc-dwyUk0myxoEBn3T7-adXs4R1RB49KmWtB2d3lMxud0M">Paper</a>] [<a href="https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2FLCS2-IIITD%2Fmultimodal_summ&sa=D&sntz=1&usg=AOvVaw1wtGbFeAnzjsDSliXBjCED">Code + Data</a>] </p>
             </td>
           </tr>
 
@@ -433,13 +461,13 @@
             </div>
             </td>
             <td width="75%" valign="middle">
-                 <a href="https://ojs.aaai.org/index.php/ICWSM/article/view/18080/17883"> <papertitle>Exercise? I thought you said ’Extra Fries’: Leveraging Sentence Demarcations and Multi-hop Attention for Meme Affect Analysis</papertitle></a>           
+                 <a href="https://ojs.aaai.org/index.php/ICWSM/article/view/18080/17883" class="custom-link"> <papertitle>Exercise? I thought you said ’Extra Fries’: Leveraging Sentence Demarcations and Multi-hop Attention for Meme Affect Analysis</papertitle></a>           
             <br>
-            <b>Shraman Pramanick</b>, <a href="https://www.iiitd.ac.in/shad">Shad Aktar</a>,<a href="https://tanmoychak.com/">Tanmoy Chakraborty</a> 
+            <b>Shraman Pramanick</b>, <a href="https://www.iiitd.ac.in/shad" class="custom-link">Shad Aktar</a>, <a href="https://tanmoychak.com/" class="custom-link">Tanmoy Chakraborty</a> 
+            <br> 
+            <em><span style="color: brown;">ICWSM, 2021</span></em>
             <br>
-            <em>ICWSM, 2021</em>
-
-        <p> <a href="https://ojs.aaai.org/index.php/ICWSM/article/view/18080/17883">Paper</a> | <a href="https://github.com/LCS2-IIITD/MHA-MEME">Code</a> | <a href="https://www.cis.jhu.edu/~shraman/icwsm_presentation.pdf">Slides</a> | <a href="https://www.cis.jhu.edu/~shraman/ICWSM_Research_Highlights.pdf">Poster</a> </p>
+            [<a href="https://ojs.aaai.org/index.php/ICWSM/article/view/18080/17883">Paper</a>] [<a href="https://github.com/LCS2-IIITD/MHA-MEME">Code</a>] [<a href="https://www.cis.jhu.edu/~shraman/icwsm_presentation.pdf">Slides</a>] [<a href="https://www.cis.jhu.edu/~shraman/ICWSM_Research_Highlights.pdf">Poster</a>]
             </td>
           </tr>
 
@@ -484,16 +512,18 @@
               <p>
               <ul>
                 <li>
-                January, 2021 - <a href="https://engineering.jhu.edu/education/graduate-studies/full-time-graduate-fellowships-grants/">JHU ECE Departmental Fellowship</a>, <em>awarded to outstanding incoming Ph.D. students</em>.
+                [June, 2024] <a href="https://arxiv.org/pdf/2307.05463.pdf">EgoVLPv2</a> is awarded as an <a href="https://egovis.github.io/awards/2022_2023/">EgoVis (Egocentric Vision) 2022/2023 Distinguished Paper</a>.
+                <li>
+                [January, 2021] <a href="https://engineering.jhu.edu/education/graduate-studies/full-time-graduate-fellowships-grants/">JHU ECE Departmental Fellowship</a>, <em>awarded to outstanding incoming Ph.D. students</em>.
                 </li>
                 <li>
-                May, 2019 - <a href="https://www.mitacs.ca/en/programs/globalink/globalink-research-internship">Mitacs Globalink Research Internship</a>, awarded to top-ranked applicants from 15 different countries to participate in a 12-week research internship in Canadian universities.
+                [May, 2019] <a href="https://www.mitacs.ca/en/programs/globalink/globalink-research-internship">Mitacs Globalink Research Internship</a>, awarded to top-ranked applicants from 15 different countries to participate in a 12-week research internship in Canadian universities.
                 </li>
                 <li>
-                October, 2016 - <a href="https://jbnsts.ac.in/seshprg.php">JBNSTS Senior Scholarship</a>, 4-year scholarship for academic excellence during B.E.
+                [October, 2016] <a href="https://jbnsts.ac.in/seshprg.php">JBNSTS Senior Scholarship</a>, 4-year scholarship for academic excellence during B.E.
                 </li>
                 <li>
-                January, 2015 - <a href="https://olympiads.hbcse.tifr.res.in/about-olympiads/stages/mathematical-olympiad/">Regional Mathematical Olympiad (RMO)</a>, ranked among top-10 students in the state.
+                [January, 2015] <a href="https://olympiads.hbcse.tifr.res.in/about-olympiads/stages/mathematical-olympiad/">Regional Mathematical Olympiad (RMO)</a>, ranked among top-10 students in the state.
                 </li>
               </ul>
               </p>
