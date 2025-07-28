@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ED-VTG</title>
+  
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+<style>
+.container {
+  position: relative;
+}
+
+.text-block {
+  position: relative;
+  top: 0px;
+  right: 0px;
+  margin-left: 5px;
+  width: 97.5%;
+  text-align: center;
+  border-radius:10px 10px 0px 0px;
+  border: 1px solid #787878;
+  background-color: #787878;
+  color: white;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar" style="margin-bottom:-40px" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="index.html">
+            EgoVLPv2
+          </a>
+          <a class="navbar-item" href="https://github.com/google/spiqa">
+            SPIQA
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div style="margin-bottom:-80px" class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Enrich and Detect: Video Temporal Grounding with Multimodal LLMs</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://shramanpramanick.github.io/">Shraman Pramanick</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=vYRzGGEAAAAJ&hl=en">Effrosyni Mavroudi</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://people.csail.mit.edu/yalesong/home/">Yale Song</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://engineering.jhu.edu/faculty/rama-chellappa/">Rama Chellappa</a><sup>2</sup>,
+            </span>
+            <p> 
+            </p>
+			      <span class="author-block">
+              <a href="https://ltorresa.github.io/home.html">Lorenzo Torresani</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.robots.ox.ac.uk/~afourast/">Triantafyllos Afouras</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>FAIR, Meta</span>&nbsp;&nbsp;&nbsp;
+            <span class="author-block"><sup>2</sup>Johns Hopkings University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+			  <!--
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <div class="columns is-centered has-text-centered">
+              <div class="column is-four-fifths">
+              <h2 class="title is-4" style="margin-bottom: 0.5rem; color: brown;">ICCV 2025</h2>
+
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+	      <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Poster</span>
+                </a>
+              </span>
+              <!-- Dataset Link. -->
+			  <!--
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+				 -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    
+	<!-- TL;DR. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4" style="margin-bottom: 0.5rem;">TL;DR: What is ED-VTG?</h2>
+		<center>
+        <div class="content has-text-justified" style='width:100%'>
+          <p>
+          <p>ED-VTG (Enrich and Detect: Video Temporal Grounding) is a novel method for fine-grained video temporal grounding that leverages multi-modal large language models (LLMs). It works in two stages:</p>
+          <p> <strong>1. Enrich:</strong> The model first enriches the input natural language query by adding missing details and contextual cues based on the video content. This enrichment transforms vague or incomplete queries into more detailed descriptions that are easier to ground temporally.</p>
+          <p> <strong>2. Detect:</strong> Using a lightweight interval decoder conditioned on the enriched query's contextualized representation, ED-VTG predicts precise temporal boundaries in the video corresponding to the query.</p>
+          <p>The model is trained with a multiple-instance learning (MIL) objective that dynamically selects the best query version (original or enriched) for each training sample, mitigating noise and hallucinations.</p>
+          <!-- <p>ED-VTG achieves state-of-the-art results on various temporal video grounding benchmarks, outperforming previous LLM-based methods and competing with specialized models, especially excelling in zero-shot evaluation scenarios.</p> -->
+          </p>
+        </div>
+		</center>
+      </div>
+    </div>
+	
+</div>
+</section>
+    <!--/ TL;DR. -->
+	
+  <section class="columns is-vcentered interpolation-panel" width=100%>
+  <div class="container is-max-desktop">
+    <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+	<center>
+      <h2 class="title is-3">ED-VTG Framework</h2>
+      <img src="./static/images/ED-VTG System.png"
+                 class="interpolation-image" width=80%/></center>
+      <p class="content has-text-justified">
+      <br>
+      <strong>Overview of the proposed Enrich and Detect framework:</strong> <em>(left)</em> <strong>ED-VTG pipeline:</strong> Given an untrimmed video and a query
+      Q to be grounded, the inputs are first tokenized into video tokens T<sub>V</sub> and text tokens T<sub>Q</sub>. The tokens are then fed into an LLM, which
+      first generates an enriched query by, e.g., filling in any missing details and then emitting an interval token <span class="small-caps">&lt;INT&gt</span>. The embedding of this
+      special token is finally decoded into the predicted temporal interval via a lightweight interval decoder. In the example shown here, the
+      vague input query is enriched into a more detailed one by our model which can be subsequently grounded more easily. <em>(right)</em> <strong>Training:</strong>
+      ED-VTG is trained using ground-truth temporal intervals and pseudo-labels of enriched queries, generated by an external off-the-shelf
+      captioning model, which \(-\) unlike our model at inference time \(-\) has access to the ground-truth intervals. For every sample during
+      training, the proposed multiple instance learning (MIL) framework allows ED-VTG to assess both the original or the enriched queries and
+      generate two sets of predictions, \(\hat{I}_{enr}\), the interval predicted using the enriched query, and \(\hat{I}_{dir}\) using the original query. Next, the model
+      backpropagates using the better prediction (i.e., lower grounding loss). Hence, during training, ED-VTG dynamically learns to decide for
+      which sample enrichment is necessary and, based on that, performs detection.
+  
+      </p>
+    </div>
+  </div>
+  </section>
+  
+  
+  <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+		<br>
+        <h2 class="title is-3">Main Results</h2>
+        
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel" style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+        <div class="container" style="flex: 0 0 30%; margin: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 230px;"> <!-- Set width and height -->
+          <div class="text-block" style="text-align: center; margin-bottom: 10px;">
+            <p>Zero-shot Single Query Grounding</p>
+          </div>
+          <div class="item item-steve" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+            <img src="./static/images/Zero-Shot Single Query Grounding.png"
+                 class="interpolation-image" style="width: 100%; height: auto; max-height: 90%;"/>
+          </div>
+        </div>
+        
+        <div class="container" style="flex: 0 0 30%; margin: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 230px;"> <!-- Set width and height -->
+          <div class="text-block" style="text-align: center; margin-bottom: 10px;">
+            <p>Fine-tuned Single Query Grounding</p>
+          </div>
+          <div class="item item-steve" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+            <img src="./static/images/Fine-tuned Single Query Grounding.png"
+                 class="interpolation-image" style="width: 100%; height: auto; max-height: 90%;"/>
+          </div>
+        </div>
+        
+        <div class="container" style="flex: 0 0 30%; margin: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 230px;"> <!-- Set width and height -->
+          <div class="text-block" style="text-align: center; margin-bottom: 10px;">
+            <p>VPG on Charades-CD-OOD and ActivityNet</p>
+          </div>
+          <div class="item item-shiba" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+            <img src="./static/images/VPG_Charades_Anet.png"
+                 class="interpolation-image" style="width: 100%; height: auto; max-height: 90%;"/>
+          </div>
+        </div>
+        
+        <div class="container" style="flex: 0 0 30%; margin: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 230px;"> <!-- Set width and height -->
+          <div class="text-block" style="text-align: center; margin-bottom: 10px;">
+            <p>VPG on TACoS and YouCook2</p>
+          </div>
+          <div class="item item-blueshirt" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+            <img src="./static/images/VPG_Tacos_YouCook2.png"
+                 class="interpolation-image" style="width: 100%; height: auto; max-height: 90%;"/>
+          </div>
+        </div>
+        
+        <div class="container" style="flex: 0 0 30%; margin: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 230px;"> <!-- Set width and height -->
+          <div class="text-block" style="text-align: center; margin-bottom: 10px;">
+            <p>NExT-GQA</p>
+          </div>
+          <div class="item item-blueshirt" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+            <img src="./static/images/NextGQA.png"
+                 class="interpolation-image" style="width: 100%; height: auto; max-height: 90%;"/>
+          </div>
+        </div>
+        <div class="container" style="flex: 0 0 30%; margin: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 230px;"> <!-- Set width and height -->
+          <div class="text-block" style="text-align: center; margin-bottom: 10px;">
+            <p>HT-Step</p>
+          </div>
+          <div class="item item-blueshirt" style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+            <img src="./static/images/HT-Step.png"
+                 class="interpolation-image" style="width: 100%; height: auto; max-height: 90%;"/>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="columns is-vcentered interpolation-panel" width=100%>
+  <div class="container is-max-desktop">
+    <div class="hero-body" style='margin-top:-25px;margin-bottom:-25px'>
+	<center>
+      <h2 class="title is-3">Primary Ablation</h2>
+      <p class="content has-text-justified">
+      The two step enrich & detect framework is more helpful since the trained model learn to perform autonomous enrichment during evaluation.
+      </p>
+      <img src="./static/images/Primary Ablation.png"
+                 class="interpolation-image" width=80%/></center>
+    </div>
+  </div>
+  </section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop" style="margin-top:-20px">
+    <center><h2 class="title is-3">Qualitative Results</h2></center><br>
+    <div class="columns is-centered">
+      <!-- Video 1 -->
+      <div class="column is-half">
+        <div class="content">
+          <video autoplay controls playsinline style="width: 100%; height: auto;">
+            <source src="./static/videos/Video 1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+      <!-- Video 2 -->
+      <div class="column is-half">
+        <div class="content">
+          <video autoplay controls playsinline style="width: 100%; height: auto;">
+            <source src="./static/videos/Video 2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content" style="margin-top:-70px">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+
+</code></pre>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content" style="margin-top:-70px">
+    <h2 class="title">Acknowledgement</h2>
+This codebase is built on the <a href="https://github.com/RenShuhuai-Andy/TimeChat">TimeChat</a> and <a href="https://github.com/huangb23/VTimeLLM">VTimeLLM</a> repository. We would like to thank the respective authors for their help. We gratefully acknowledge the following colleagues for
+valuable discussions and support of our project: Tushar Nagarajan, Huiyu Wang, Yujie Lu, and Arjun Somayazulu. This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. Template of this website is borrowed from <a href="https://nerfies.github.io/">nerfies</a> website.
+</code></pre>
+  </div>
+</section>
+
+
+</body>
+</html>
