@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="SciFig: an end-to-end multi-agent framework generating visually rich, fully editable methodology figures from scientific text." />
+  <title>SciFig — Automating Editable Figure Generation for Scientific Papers</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="static/favicon.svg" />
+  <link rel="apple-touch-icon" href="static/favicon.svg" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
+
+  <!-- Inline pre-paint theme to avoid flash -->
+  <script>
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem('scifig-theme'); } catch (e) {}
+      var pref = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', pref);
+    })();
+  </script>
+
+  <style>
+    /* ── DARK theme (default, more blackish) ──────────────── */
+    :root,
+    [data-theme="dark"] {
+      --bg:        #0c0c14;
+      --bg-alt:    #14141f;
+      --nav-bg:    linear-gradient(90deg, #08080e 0%, #131322 100%);
+      --surface:   #1a1a26;
+      --surface-2: #1f1f30;
+      --border:    rgba(140, 165, 220, 0.10);
+      --border-hi: rgba(140, 165, 220, 0.22);
+      --text:      #d6dde8;
+      --text-2:    #8088a0;
+      --text-3:    #565c70;
+      --blue:      #82b3ff;
+      --purple:    #c7a5f7;
+      --mint:      #8de2d3;
+      --gold:      #f5d98a;
+      --bib-bg:    #050509;
+      --code-text: #c0ceee;
+      --shadow-md: 0 8px 36px rgba(0,0,0,.45);
+      --tldr-bg:   rgba(245,217,138,.06);
+      --tldr-bd:   rgba(245,217,138,.22);
+      --paper-text:#0c0c14;       /* used for inverted primary btn */
+      --logo-invert: 1;            /* JHU dark blue → white in dark */
+      --hf-bg:     rgba(245,217,138,.08);
+    }
+    /* ── LIGHT theme ──────────────────────────────────────── */
+    [data-theme="light"] {
+      --bg:        #fafafb;
+      --bg-alt:    #f1f3f8;
+      --nav-bg:    linear-gradient(90deg, #fafafb 0%, #f1f3f8 100%);
+      --surface:   #ffffff;
+      --surface-2: #ffffff;
+      --border:    rgba(20, 30, 60, 0.08);
+      --border-hi: rgba(20, 30, 60, 0.20);
+      --text:      #1a1d2e;
+      --text-2:    #565c70;
+      --text-3:    #9098a8;
+      --blue:      #2d5cdf;
+      --purple:    #7c5fdc;
+      --mint:      #1c8772;
+      --gold:      #b4842a;
+      --bib-bg:    #1a1d2e;
+      --code-text: #cfd6e8;
+      --shadow-md: 0 4px 24px rgba(20,30,60,.07);
+      --tldr-bg:   rgba(180,132,42,.05);
+      --tldr-bd:   rgba(180,132,42,.25);
+      --paper-text:#ffffff;
+      --logo-invert: 0;
+      --hf-bg:     rgba(180,132,42,.06);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.72;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color .3s ease, color .3s ease;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Smooth theme transitions on key elements */
+    .site-nav, .page-section, .tldr-section, .stat, .callout,
+    .fig-box, .bib-outer, .site-footer, .btn, .nav-links a,
+    .theme-toggle, .inst-logo-wrap, .teaser-wrap img {
+      transition: background-color .3s ease, color .3s ease,
+                  border-color .3s ease, box-shadow .3s ease;
+    }
+
+    /* ── Nav ────────────────────────────────────────────────── */
+    .site-nav {
+      position: sticky;
+      top: 0; z-index: 200;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: 1000px;
+      margin: 0 auto; padding: 0 2rem;
+      height: 50px;
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+    .nav-brand {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.15rem; font-weight: 600; font-style: italic;
+      color: var(--blue); flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex; gap: 0; list-style: none; margin-left: auto;
+    }
+    .nav-links a {
+      display: block; padding: .22rem .7rem;
+      font-size: .76rem; font-weight: 500;
+      letter-spacing: .05em; text-transform: uppercase;
+      color: var(--text-2);
+      border-radius: 4px;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text);
+      background: rgba(130,179,255,.08);
+    }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--border-hi);
+      background: transparent;
+      color: var(--text-2);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      margin-left: .75rem;
+    }
+    .theme-toggle:hover {
+      color: var(--blue);
+      border-color: var(--blue);
+      background: rgba(130,179,255,.08);
+    }
+    .theme-toggle svg { width: 14px; height: 14px; }
+    .theme-toggle .icon-sun  { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+    /* ── Hero ───────────────────────────────────────────────── */
+    .hero {
+      position: relative; overflow: hidden;
+      padding: 4.5rem 2rem 3rem;
+      text-align: center;
+      background: var(--bg);
+    }
+    .hero::before, .hero::after {
+      content: ''; position: absolute;
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero::before {
+      width: 640px; height: 640px;
+      top: -200px; left: -100px;
+      background: radial-gradient(circle, rgba(130,179,255,.07) 0%, transparent 70%);
+    }
+    .hero::after {
+      width: 500px; height: 500px;
+      bottom: -80px; right: -80px;
+      background: radial-gradient(circle, rgba(199,165,247,.06) 0%, transparent 70%);
+    }
+    [data-theme="light"] .hero::before {
+      background: radial-gradient(circle, rgba(45,92,223,.06) 0%, transparent 70%);
+    }
+    [data-theme="light"] .hero::after {
+      background: radial-gradient(circle, rgba(124,95,220,.05) 0%, transparent 70%);
+    }
+
+    .hero-inner { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; }
+
+    .paper-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 600; line-height: 1.18;
+      letter-spacing: -.02em;
+      color: var(--text);
+      margin-bottom: 1.3rem;
+    }
+    .paper-title em { font-style: italic; color: var(--blue); }
+
+    /* Authors */
+    .authors {
+      font-size: .94rem; line-height: 2;
+      color: var(--text); margin-bottom: .5rem;
+    }
+    .authors a {
+      padding: 1px 4px; border-radius: 3px;
+      transition: color .2s, background .2s;
+    }
+    .authors a:hover { color: var(--blue); background: rgba(130,179,255,.09); }
+    .authors sup { font-size: .62em; color: var(--blue); font-weight: 600; }
+    .corr-mark { font-size: .65em; color: var(--blue); vertical-align: super; }
+
+    .affiliations {
+      font-size: .78rem; color: var(--text-2);
+      line-height: 1.8; margin-bottom: 1.6rem;
+    }
+    .affiliations sup { font-size: .65em; color: var(--blue); }
+
+    /* Institution logos */
+    .inst-logos {
+      display: flex; align-items: center; justify-content: center;
+      gap: 3rem; margin-bottom: 2rem; flex-wrap: wrap;
+    }
+    .inst-logo-wrap {
+      display: inline-flex; align-items: center;
+      opacity: .85; transition: opacity .25s, transform .25s;
+    }
+    .inst-logo-wrap:hover { opacity: 1; transform: translateY(-1px); }
+    .inst-logo-wrap img {
+      display: block; width: auto;
+    }
+    .inst-logo-wrap .jhu-img {
+      height: 52px;
+      filter: brightness(0) invert(var(--logo-invert));
+    }
+    .inst-logo-wrap .adobe-img {
+      height: 32px;
+    }
+    .inst-logo-wrap .adobe-suffix {
+      font-family: 'Adobe Clean', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1.05rem; font-weight: 500;
+      color: var(--text);
+      margin-left: .4rem;
+      letter-spacing: .005em;
+      transform: translateY(2px);
+    }
+
+    /* ── Buttons ────────────────────────────────────────────── */
+    .btn-row {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: .55rem;
+      margin-bottom: 2.8rem;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .65rem 1.4rem;
+      border-radius: 8px;
+      font-size: .875rem; font-weight: 600;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: all .22s ease;
+    }
+    .btn i, .btn .ai { font-size: .95rem; }
+    .btn .arrow-icon {
+      font-size: .7rem; opacity: .55;
+      transition: transform .22s ease, opacity .22s;
+    }
+    .btn:hover .arrow-icon { transform: translateX(3px); opacity: 1; }
+
+    .btn-paper {
+      background: var(--blue); color: var(--paper-text);
+      border-color: var(--blue);
+    }
+    .btn-paper:hover {
+      filter: brightness(1.1);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(130,179,255,.35);
+    }
+    .btn-code {
+      background: rgba(130,179,255,.06);
+      color: var(--text); border-color: var(--border-hi);
+    }
+    .btn-code:hover {
+      background: rgba(130,179,255,.15);
+      border-color: var(--blue); color: var(--blue);
+      transform: translateY(-2px);
+    }
+    .btn-hf {
+      background: var(--hf-bg);
+      color: var(--text); border-color: var(--border-hi);
+    }
+    .btn-hf:hover {
+      background: rgba(245,217,138,.18);
+      border-color: var(--gold); color: var(--gold);
+      transform: translateY(-2px);
+    }
+    [data-theme="light"] .btn-hf:hover {
+      background: rgba(180,132,42,.12);
+    }
+    .hf-svg { width: 19px; height: 19px; flex-shrink: 0; }
+
+    /* Teaser */
+    .teaser-wrap { max-width: 820px; margin: 0 auto; position: relative; }
+    .teaser-glow {
+      position: absolute; inset: -1px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, rgba(130,179,255,.28), rgba(199,165,247,.14), rgba(130,179,255,.1));
+      z-index: 0;
+    }
+    [data-theme="light"] .teaser-glow {
+      background: linear-gradient(135deg, rgba(45,92,223,.18), rgba(124,95,220,.10), rgba(45,92,223,.08));
+    }
+    .teaser-wrap img {
+      position: relative; z-index: 1;
+      width: 100%; border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface); display: block;
+    }
+    .teaser-caption {
+      font-size: .77rem; color: var(--text-2);
+      max-width: 680px; margin: .9rem auto 0;
+      line-height: 1.55; text-align: center;
+    }
+    .teaser-caption strong { color: var(--text); }
+
+    /* ── TL;DR ──────────────────────────────────────────────── */
+    .tldr-section {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.6rem 2rem;
+    }
+    .tldr-inner {
+      max-width: 1000px; margin: 0 auto;
+      display: flex; gap: 1.2rem; align-items: flex-start;
+    }
+    .tldr-label {
+      flex-shrink: 0;
+      font-size: .68rem; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--gold);
+      padding: .2rem .55rem;
+      border: 1px solid var(--tldr-bd);
+      border-radius: 4px;
+      margin-top: .18rem;
+      background: var(--tldr-bg);
+    }
+    .tldr-text {
+      font-size: .92rem; color: var(--text); line-height: 1.72;
+    }
+    .tldr-text strong { color: var(--gold); font-weight: 700; }
+    .tldr-text em { color: var(--text-2); font-style: normal; }
+
+    /* ── Sections ───────────────────────────────────────────── */
+    .page-section { padding: 3.2rem 2rem; }
+    .page-section.alt { background: var(--bg-alt); }
+
+    .section-inner { max-width: 1000px; margin: 0 auto; }
+
+    .eyebrow {
+      font-size: .68rem; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--blue); display: block; margin-bottom: .6rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.45rem, 3.2vw, 2rem);
+      font-weight: 600; line-height: 1.22;
+      letter-spacing: -.015em; color: var(--text);
+      margin-bottom: 1.1rem;
+    }
+
+    .body-text {
+      font-size: .945rem; color: var(--text);
+      line-height: 1.8; text-align: justify;
+      hyphens: auto;
+    }
+    .body-text + .body-text { margin-top: .85rem; }
+    .muted { font-size: .9rem; color: var(--text-2); line-height: 1.75; }
+
+    /* ── Stats ──────────────────────────────────────────────── */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1rem; margin-top: 2rem; padding-top: 1.7rem;
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 720px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+    .stat {
+      padding: 1rem 1.1rem;
+      background: rgba(130,179,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    [data-theme="light"] .stat {
+      background: var(--surface);
+      box-shadow: 0 1px 3px rgba(20,30,60,.04);
+    }
+    .stat:hover {
+      background: rgba(130,179,255,.08);
+      border-color: var(--border-hi);
+      transform: translateY(-2px);
+    }
+    [data-theme="light"] .stat:hover {
+      background: var(--surface);
+      box-shadow: 0 4px 16px rgba(20,30,60,.08);
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.1rem; font-weight: 700;
+      color: var(--blue); line-height: 1;
+      letter-spacing: -.02em;
+    }
+    .stat-desc {
+      font-size: .76rem; color: var(--text-2);
+      margin-top: .45rem; line-height: 1.45;
+    }
+
+    /* ── Callouts ───────────────────────────────────────────── */
+    .callout-stack { display: flex; flex-direction: column; gap: .85rem; margin-top: 1.5rem; }
+    .callout {
+      border-left: 2.5px solid;
+      border-radius: 0 8px 8px 0;
+      padding: 1.1rem 1.4rem;
+    }
+    .c-blue   { border-color: var(--blue);   background: rgba(130,179,255,.05); }
+    .c-mint   { border-color: var(--mint);   background: rgba(141,226,211,.045); }
+    .c-purple { border-color: var(--purple); background: rgba(199,165,247,.05); }
+    [data-theme="light"] .c-blue   { background: rgba(45,92,223,.04); }
+    [data-theme="light"] .c-mint   { background: rgba(28,135,114,.04); }
+    [data-theme="light"] .c-purple { background: rgba(124,95,220,.04); }
+
+    .callout h3 {
+      font-size: .95rem; font-weight: 700;
+      color: var(--text); margin-bottom: .45rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .65rem; padding: .1rem .45rem;
+      border-radius: 4px; font-weight: 500;
+    }
+    .c-blue h3 .chip   { background: rgba(130,179,255,.15); color: var(--blue); }
+    .c-mint h3 .chip   { background: rgba(141,226,211,.15); color: var(--mint); }
+    .c-purple h3 .chip { background: rgba(199,165,247,.15); color: var(--purple); }
+    [data-theme="light"] .c-blue h3 .chip   { background: rgba(45,92,223,.12); }
+    [data-theme="light"] .c-mint h3 .chip   { background: rgba(28,135,114,.12); }
+    [data-theme="light"] .c-purple h3 .chip { background: rgba(124,95,220,.12); }
+
+    .callout p {
+      font-size: .865rem; color: var(--text-2);
+      line-height: 1.72; text-align: justify; hyphens: auto;
+    }
+    .callout p strong { color: var(--text); font-weight: 600; }
+
+    /* ── Figures ────────────────────────────────────────────── */
+    .fig-wrap { margin-top: 1.6rem; }
+    .fig-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem;
+    }
+    .fig-box:hover { box-shadow: var(--shadow-md); }
+    .fig-box img { width: 100%; border-radius: 6px; display: block; }
+    .fig-cap {
+      font-size: .77rem; color: var(--text-2);
+      line-height: 1.55; margin-top: .8rem;
+      padding-top: .7rem; border-top: 1px solid var(--border);
+    }
+    .fig-cap strong { color: var(--text); }
+
+    .fig-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 1.6rem;
+    }
+    @media (max-width: 620px) { .fig-grid { grid-template-columns: 1fr; } }
+
+    /* ── BibTeX ─────────────────────────────────────────────── */
+    .bib-outer {
+      background: var(--bib-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      position: relative; margin-top: 1.4rem;
+    }
+    .bib-outer pre {
+      font-family: 'JetBrains Mono', monospace; font-size: .79rem;
+      line-height: 1.8; color: var(--code-text);
+      overflow-x: auto; white-space: pre;
+    }
+    .kw  { color: #82b3ff; }
+    .fld { color: #8de2d3; }
+    .val { color: #c7a5f7; }
+    .pnc { color: #565c70; }
+    .bib-copy {
+      position: absolute; top: .8rem; right: .8rem;
+      font-family: 'Inter', sans-serif; font-size: .71rem; font-weight: 600;
+      color: rgba(214,221,232,.6);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 5px; padding: .2rem .6rem;
+      cursor: pointer;
+    }
+    .bib-copy:hover {
+      background: rgba(130,179,255,.15);
+      color: var(--blue); border-color: rgba(130,179,255,.3);
+    }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    .site-footer {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      text-align: center; padding: 1.8rem 2rem;
+      font-size: .77rem; color: var(--text-3);
+    }
+    .site-footer a { color: var(--text-2); }
+    .site-footer a:hover { color: var(--text); }
+
+    /* Responsive */
+    @media (max-width: 680px) {
+      .hero { padding: 3.5rem 1.4rem 2.5rem; }
+      .page-section { padding: 2.5rem 1.4rem; }
+      .tldr-section { padding: 1.2rem 1.4rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ═══════════════ NAV ════════════════════════════════════ -->
+<nav class="site-nav" aria-label="Primary navigation">
+  <div class="nav-inner">
+    <span class="nav-brand">SciFig</span>
+    <ul class="nav-links">
+      <li><a href="#abstract">Abstract</a></li>
+      <li><a href="#method">Method</a></li>
+      <li><a href="#benchmark">Benchmark</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#bibtex">BibTeX</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-inner">
+
+    <h1 class="paper-title">
+      <em>SciFig</em>: Towards Automating Editable<br />
+      Figure Generation for Scientific Papers
+    </h1>
+
+    <p class="authors">
+      <a href="#">Siyuan Huang</a><sup>1</sup>,&ensp;
+      <a href="#">Yifan Zhou</a><sup>2</sup>,&ensp;
+      <a href="#">Yutong Gao</a><sup>3</sup>,&ensp;
+      <a href="#">Zi Yin</a><sup>4</sup>,&ensp;
+      <a href="#">Juyang Bai</a><sup>1</sup>,&ensp;
+      <a href="#">Xinxin Liu</a><sup>5</sup>,<br />
+      <a href="#">Rama Chellappa</a><sup>1</sup>,&ensp;
+      <a href="#">Chun Pong Lau</a><sup>6</sup>,&ensp;
+      <a href="#">Cheng Peng</a><sup>1</sup>,&ensp;
+      <a href="#">Sayan Nag</a><sup>7</sup>,&ensp;
+      <a href="https://shramanpramanick.github.io" target="_blank" rel="noopener">Shraman Pramanick</a><sup>7</sup>
+    </p>
+
+    <p class="affiliations">
+      <sup>1</sup>Johns Hopkins University &ensp;
+      <sup>2</sup>Zhejiang University &ensp;
+      <sup>3</sup>Tsinghua University &ensp;
+      <sup>4</sup>Google<br />
+      <sup>5</sup>University of Central Florida &ensp;
+      <sup>6</sup>City University of Hong Kong &ensp;
+      <sup>7</sup>Adobe Research
+    </p>
+
+    <!-- Institution logos -->
+    <div class="inst-logos">
+      <a class="inst-logo-wrap" href="https://www.jhu.edu" target="_blank" rel="noopener" aria-label="Johns Hopkins University">
+        <img src="static/logos/jhu.png" alt="Johns Hopkins University" class="jhu-img" />
+      </a>
+      <a class="inst-logo-wrap" href="https://research.adobe.com" target="_blank" rel="noopener" aria-label="Adobe Research">
+        <img src="static/logos/adobe.svg" alt="Adobe" class="adobe-img" />
+        <span class="adobe-suffix">Research</span>
+      </a>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="btn-row">
+      <a href="#" class="btn btn-paper">
+        <i class="ai ai-arxiv"></i>
+        Paper
+        <i class="fa-solid fa-arrow-right arrow-icon"></i>
+      </a>
+      <a href="https://github.com/CyanH1876/SciFig" target="_blank" rel="noopener" class="btn btn-code">
+        <i class="fa-brands fa-github"></i>
+        Code
+        <i class="fa-solid fa-arrow-right arrow-icon"></i>
+      </a>
+      <a href="#" class="btn btn-hf">
+        <!-- Inline Hugging Face logo SVG -->
+        <svg class="hf-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <!-- Yellow face -->
+          <circle cx="50" cy="50" r="36" fill="#FFD21E"/>
+          <!-- Eyes -->
+          <ellipse cx="37" cy="42" rx="4.5" ry="5" fill="#2D2925"/>
+          <ellipse cx="63" cy="42" rx="4.5" ry="5" fill="#2D2925"/>
+          <circle cx="38.5" cy="40" r="1.3" fill="#FFFFFF"/>
+          <circle cx="64.5" cy="40" r="1.3" fill="#FFFFFF"/>
+          <!-- Smile -->
+          <path d="M 31 58 Q 50 76 69 58" stroke="#2D2925" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+          <!-- Cheek blush -->
+          <ellipse cx="26" cy="58" rx="4" ry="3" fill="#FFA8C8" opacity="0.7"/>
+          <ellipse cx="74" cy="58" rx="4" ry="3" fill="#FFA8C8" opacity="0.7"/>
+          <!-- Hands -->
+          <path d="M 17 64 Q 12 70 14 78 Q 20 73 23 68" fill="#FFD21E" stroke="#2D2925" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M 83 64 Q 88 70 86 78 Q 80 73 77 68" fill="#FFD21E" stroke="#2D2925" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+        SciFig-Bench
+        <i class="fa-solid fa-arrow-right arrow-icon"></i>
+      </a>
+    </div>
+
+    <!-- Teaser -->
+    <div class="teaser-wrap">
+      <div class="teaser-glow"></div>
+      <img src="static/images/scifig-teaser-final.png"
+           alt="SciFig generates fully editable methodology figures; SciFig-Eval measures quality against author-drawn references." />
+    </div>
+    <p class="teaser-caption">
+      <strong>SciFig</strong> generates visually rich, fully editable methodology figures from method text and figure captions.
+      <strong>SciFig-Eval</strong> evaluates them against author-drawn references with a rubric-based, deterministic, multi-dimensional protocol.
+      Running example: <em>Barlow Twins</em>.
+    </p>
+
+  </div>
+</header>
+
+<!-- ═══════════════ TL;DR ══════════════════════════════════ -->
+<div class="tldr-section">
+  <div class="tldr-inner">
+    <span class="tldr-label">TL;DR</span>
+    <p class="tldr-text">
+      We introduce <strong>SciFig</strong>, a multi-agent framework that generates <strong>visually rich, fully editable</strong>
+      methodology figures from scientific text using four cooperating agents — Planning, Layout, Component, and Feedback —
+      in roughly <strong>ten minutes</strong> per figure. We additionally contribute <strong>SciFig-Bench</strong>
+      (435 human-verified figures, 37 arXiv domains, 15 top-tier venues) and <strong>SciFig-Eval</strong>,
+      a four-axis evaluation protocol validated against 60 expert judges at Pearson <em>r</em> = 0.92.
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════ ABSTRACT ═══════════════════════════════ -->
+<section class="page-section" id="abstract">
+  <div class="section-inner">
+
+    <span class="eyebrow">Abstract</span>
+    <h2 class="section-title">Bridging Editability and Visual Quality in Scientific Figure Generation</h2>
+
+    <p class="body-text">
+      High-quality methodology figures are central to scientific communication, yet they remain difficult and time-consuming to create. Existing systems face a persistent trade-off: TikZ- or SVG-based methods produce editable structured outputs but lack the richness of human-designed figures, while image-generation models yield polished raster outputs that are difficult to revise. Both directions still struggle to faithfully translate long, unstructured methodology text into figures that preserve fine-grained components, module interactions, and information flow.
+    </p>
+    <p class="body-text" style="margin-top:.85rem;">
+      We introduce <strong>SciFig</strong>, an end-to-end multi-agent framework that generates visually rich, fully editable methodology figures from scientific text. SciFig decomposes figure generation into planning, layout synthesis, component rendering, and iterative refinement, producing XML figures editable in standard diagramming tools. We also introduce <strong>SciFig-Bench</strong> and <strong>SciFig-Eval</strong> for benchmarking and evaluation. Across seven baselines, SciFig achieves the best performance on all four SciFig-Eval axes and generates figures in roughly ten minutes. Qualitative examples further demonstrate generalization to teaser diagrams and statistical plots.
+    </p>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">435</div>
+        <div class="stat-desc">Author-drawn figures<br/>in SciFig-Bench</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">37</div>
+        <div class="stat-desc">arXiv domains<br/>covered</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">15</div>
+        <div class="stat-desc">Top-tier AI/ML<br/>venues</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-desc">SciFig-Eval<br/>evaluation axes</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ CONTRIBUTIONS ═════════════════════════ -->
+<section class="page-section alt">
+  <div class="section-inner">
+
+    <span class="eyebrow">Contributions</span>
+    <h2 class="section-title">Three Interrelated Contributions</h2>
+
+    <div class="callout-stack">
+      <div class="callout c-blue">
+        <h3>SciFig <span class="chip">Framework</span></h3>
+        <p>
+          An end-to-end multi-agent system for generating <strong>visually rich, fully editable methodology figures</strong> from scientific text. Four cooperating agents — Planning, Layout, Component, and Feedback — decompose the task to separate structural layout from visual rendering. SciFig supports both <strong>human-in-the-loop</strong> refinement via direct edits and <strong>VLM-in-the-loop</strong> refinement via automatic visual critiques, and outperforms all evaluated single-agent and agentic baselines in a human study with 60 participants.
+        </p>
+      </div>
+      <div class="callout c-mint">
+        <h3>SciFig-Bench <span class="chip">Dataset</span></h3>
+        <p>
+          A human-verified benchmark of <strong>435 author-drawn methodology figures</strong> spanning <strong>37 AI/ML-centered arXiv domains</strong> across <strong>15 top-tier venues</strong> (including AAAI, NeurIPS, IJCAI, ICLR, ICML, CVPR, ICCV, ACL, and EMNLP), alongside a separate rubric development set of 1,784 figures. Each sample includes the methodology section text, figure caption, and human-drawn reference figure.
+        </p>
+      </div>
+      <div class="callout c-purple">
+        <h3>SciFig-Eval <span class="chip">Evaluation Protocol</span></h3>
+        <p>
+          A decomposed evaluation framework measuring figure quality along four complementary axes: <strong>Completeness &amp; Correctness</strong> via cross-model VQA (Gemini, GPT, Qwen3-VL); <strong>Rubric-Based Content Quality</strong> via 20 binary questions grounded in real figures; <strong>Perceptual Design Quality</strong> via 8 deterministic heuristics requiring no VLM; and <strong>Reference-Based Fidelity</strong> via visual, cross-modal, and textual comparison. Validated at Pearson <em>r</em> = 0.92 (<em>p</em> &lt; 0.001) against 60 expert judges.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ METHOD ═════════════════════════════════ -->
+<section class="page-section" id="method">
+  <div class="section-inner">
+
+    <span class="eyebrow">Method</span>
+    <h2 class="section-title">Four Cooperating Agents</h2>
+
+    <p class="body-text">
+      SciFig decomposes figure generation into four sequential stages, each handled by a dedicated agent. Given methodology text and a figure caption, the system outputs an editable XML file — renderable in PowerPoint, Keynote, Illustrator, or diagrams.net — encoding the figure's blocks, spatial layout, and visual components. The Feedback Agent forms iterative refinement loops with both the Layout and Component agents, supporting human-in-the-loop and VLM-in-the-loop revision modes.
+    </p>
+
+    <div class="fig-wrap">
+      <div class="fig-box">
+        <img src="static/images/scifig-main-final.png"
+             alt="SciFig's four-agent pipeline: Planning, Layout, Component, and Feedback agents generating editable XML methodology figures." />
+        <p class="fig-cap">
+          <strong>SciFig's four-agent pipeline.</strong> The <strong>Planning Agent</strong> extracts structured pipeline blocks from the methodology text. The <strong>Layout Agent</strong> converts this plan into editable XML. The <strong>Component Agent</strong> renders visual elements for each block. The <strong>Feedback Agent</strong> refines the figure using human or VLM critiques. Running example: <em>Barlow Twins</em>. This figure was itself generated by SciFig.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ BENCHMARK ══════════════════════════════ -->
+<section class="page-section alt" id="benchmark">
+  <div class="section-inner">
+
+    <span class="eyebrow">SciFig-Bench</span>
+    <h2 class="section-title">A Broad, Human-Verified Benchmark</h2>
+
+    <p class="body-text">
+      SciFig-Bench covers the breadth of modern AI/ML research with 435 methodology figures from papers at major venues spanning computer vision, NLP, robotics, theory, and beyond. A rigorous three-stage filtering pipeline — section identification, quality checks, and text–figure consistency verification by two frontier VLMs — ensures every sample is clean, high-quality, and correctly paired.
+    </p>
+
+    <div class="fig-grid">
+      <div class="fig-box">
+        <img src="static/images/paper_domains.png"
+             alt="Venue pie chart and arXiv category radial chart for SciFig-Bench." />
+        <p class="fig-cap">
+          <strong>Venue and arXiv category distribution.</strong> AI/ML (35%), NLP (14%), and Vision (8%) are the dominant areas, with broad coverage across AAAI, NeurIPS, IJCAI, ICLR, ICML, CVPR, ICCV, ACL, and others.
+        </p>
+      </div>
+      <div class="fig-box">
+        <img src="static/images/Words_Methodology.png"
+             alt="Word cloud and word-count histogram of methodology sections in SciFig-Bench." />
+        <p class="fig-cap">
+          <strong>Methodology text statistics.</strong> Word counts range from ~400 to 3,500+, peaking at 1,500–2,000 words — long, unstructured prose that challenges existing generation systems.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ RESULTS ════════════════════════════════ -->
+<section class="page-section" id="results">
+  <div class="section-inner">
+
+    <span class="eyebrow">Qualitative Results</span>
+    <h2 class="section-title">Beyond Methodology Figures</h2>
+
+    <p class="body-text">
+      Although SciFig is benchmarked on methodology figures, qualitative examples show it generalizes to teaser diagrams and statistical plots. All outputs are fully editable XML — no full regeneration is required for revisions. Figures below were generated from paper text without access to the original authors' source files.
+    </p>
+
+    <div class="fig-wrap">
+      <div class="fig-box">
+        <img src="static/images/scifig-qual-1.png"
+             alt="Qualitative results: SciFig generating method diagrams, teaser diagrams, and statistical plots." />
+        <p class="fig-cap">
+          <strong>Representative generated figures.</strong> Left: methodology diagrams for arXiv papers 2302.09785v1 and 2310.04755v3. Right: teaser figure (2301.01919v2) and statistical bar plot (2303.10816v1). All outputs are fully editable.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ BIBTEX ═════════════════════════════════ -->
+<section class="page-section alt" id="bibtex">
+  <div class="section-inner">
+
+    <span class="eyebrow">Citation</span>
+    <h2 class="section-title">BibTeX</h2>
+    <p class="muted">If you find SciFig useful in your research, please consider citing our work.</p>
+
+    <div class="bib-outer">
+      <button class="bib-copy" onclick="copyBib(this)">Copy</button>
+<pre><span class="pnc">@</span><span class="kw">inproceedings</span><span class="pnc">{</span>huang2026scifig<span class="pnc">,</span>
+  <span class="fld">title</span>   <span class="pnc">= {</span><span class="val">SciFig: Towards Automating Editable Figure Generation
+             for Scientific Papers</span><span class="pnc">},</span>
+  <span class="fld">author</span>  <span class="pnc">= {</span><span class="val">Huang, Siyuan and Zhou, Yifan and Gao, Yutong and
+             Yin, Zi and Bai, Juyang and Liu, Xinxin and
+             Chellappa, Rama and Lau, Chun Pong and Peng, Cheng and
+             Nag, Sayan and Pramanick, Shraman</span><span class="pnc">},</span>
+  <span class="fld">year</span>    <span class="pnc">= {</span><span class="val">2026</span><span class="pnc">}</span>
+<span class="pnc">}</span></pre>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═════════════════════════════════ -->
+<footer class="site-footer">
+  <p>
+    SciFig &nbsp;·&nbsp; Adobe Research &amp; Johns Hopkins University &nbsp;·&nbsp; 2026<br />
+    <span style="margin-top:.35rem; display:inline-block;">
+      Contact: <a href="mailto:spramanick@adobe.com">spramanick@adobe.com</a>
+    </span>
+  </p>
+</footer>
+
+<script>
+  // Theme toggle
+  const root = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  toggle.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('scifig-theme', next); } catch (e) {}
+  });
+
+  // Copy BibTeX
+  function copyBib(btn) {
+    const raw =
+`@inproceedings{huang2026scifig,
+  title   = {SciFig: Towards Automating Editable Figure Generation for Scientific Papers},
+  author  = {Huang, Siyuan and Zhou, Yifan and Gao, Yutong and
+             Yin, Zi and Bai, Juyang and Liu, Xinxin and
+             Chellappa, Rama and Lau, Chun Pong and Peng, Cheng and
+             Nag, Sayan and Pramanick, Shraman},
+  year    = {2026}
+}`;
+    navigator.clipboard.writeText(raw).then(() => {
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+    });
+  }
+
+  // Active nav highlighting
+  const targets = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        links.forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-35% 0px -60% 0px' });
+  targets.forEach(t => io.observe(t));
+</script>
+
+</body>
+</html>
