@@ -603,9 +603,9 @@
         Paper
         <i class="fa-solid fa-arrow-right arrow-icon"></i>
       </a>
-      <a href="https://github.com/CyanH1876/SciFig" target="_blank" rel="noopener" class="btn btn-code">
+      <a href="https://arxiv.org/pdf/2601.04390" target="_blank" rel="noopener" class="btn btn-code">
         <i class="fa-brands fa-github"></i>
-        Code
+        Code (Coming Soon)
         <i class="fa-solid fa-arrow-right arrow-icon"></i>
       </a>
       <a href="#" class="btn btn-hf">
@@ -627,7 +627,7 @@
           <path d="M 17 64 Q 12 70 14 78 Q 20 73 23 68" fill="#FFD21E" stroke="#2D2925" stroke-width="1.5" stroke-linejoin="round"/>
           <path d="M 83 64 Q 88 70 86 78 Q 80 73 77 68" fill="#FFD21E" stroke="#2D2925" stroke-width="1.5" stroke-linejoin="round"/>
         </svg>
-        SciFig-Bench
+        SciFig-Bench (Coming Soon)
         <i class="fa-solid fa-arrow-right arrow-icon"></i>
       </a>
     </div>
@@ -855,13 +855,11 @@
   // Copy BibTeX
   function copyBib(btn) {
     const raw =
-`@inproceedings{huang2026scifig,
-  title   = {SciFig: Towards Automating Editable Figure Generation for Scientific Papers},
-  author  = {Huang, Siyuan and Zhou, Yifan and Gao, Yutong and
-             Yin, Zi and Bai, Juyang and Liu, Xinxin and
-             Chellappa, Rama and Lau, Chun Pong and Peng, Cheng and
-             Nag, Sayan and Pramanick, Shraman},
-  year    = {2026}
+`@article{huang2026scifig,
+  title={SciFig: Towards Automating Scientific Figure Generation},
+  author={Huang, Siyuan and Gao, Yutong and Bai, Juyang and Zhou, Yifan and Yin, Zi and Liu, Xinxin and Chellappa, Rama and Lau, Chun Pong and Nag, Sayan and Peng, Cheng and others},
+  journal={arXiv preprint arXiv:2601.04390},
+  year={2026}
 }`;
     navigator.clipboard.writeText(raw).then(() => {
       btn.textContent = 'Copied!';
